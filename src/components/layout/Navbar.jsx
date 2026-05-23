@@ -40,14 +40,21 @@ export default function Navbar() {
             : 'h-24 top-0 left-0 w-full bg-transparent border-b border-transparent px-6 md:px-12 animate-fade-in'
         }`}
       >
-        {/* Left Side: Editorial Typography Logo */}
-        <a href="#home" className="flex flex-col items-start leading-none group">
-          <span className="font-display italic text-xl md:text-2xl text-ivory tracking-wide transition-colors duration-300 group-hover:text-gold">
-            Arabic Kitchen
-          </span>
-          <span className="font-arabic text-[9px] text-gold/80 tracking-[0.15em] -mt-0.5 self-end">
-            المطبخ العربي
-          </span>
+        {/* Left Side: Brand Logo & Editorial Typography */}
+        <a href="#home" className="flex items-center gap-3 group">
+          <img 
+            src="/logo.webp" 
+            alt="Arabic Kitchen Logo" 
+            className="h-10 w-10 md:h-11 md:w-11 object-cover rounded-full border border-[#C9952A]/30 transition-transform duration-300 group-hover:scale-105 shadow-sm" 
+          />
+          <div className="flex flex-col items-start leading-none">
+            <span className="font-display italic text-lg md:text-xl text-ivory tracking-wide transition-colors duration-300 group-hover:text-gold">
+              Arabic Kitchen
+            </span>
+            <span className="font-arabic text-[8px] text-gold/80 tracking-[0.12em] -mt-0.5 self-end">
+              المطبخ العربي
+            </span>
+          </div>
         </a>
 
         {/* Center: Desktop Links */}

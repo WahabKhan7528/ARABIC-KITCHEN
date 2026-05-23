@@ -14,13 +14,20 @@ export default function Footer() {
         
         {/* Column 1: Brand & Bio */}
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col leading-none">
-            <span className="font-display italic text-3xl text-ivory tracking-wide">
-              Arabic Kitchen
-            </span>
-            <span className="font-arabic text-xs text-gold/80 tracking-widest -mt-0.5 self-start">
-              المطبخ العربي
-            </span>
+          <div className="flex items-center gap-3 group">
+            <img 
+              src="/logo.webp" 
+              alt="Arabic Kitchen Logo" 
+              className="h-10 w-10 object-cover rounded-full border border-[#C9952A]/30 transition-transform duration-300 group-hover:scale-105 shadow-sm" 
+            />
+            <div className="flex flex-col leading-none">
+              <span className="font-display italic text-2xl text-ivory tracking-wide">
+                Arabic Kitchen
+              </span>
+              <span className="font-arabic text-xs text-gold/80 tracking-widest -mt-0.5 self-start">
+                المطبخ العربي
+              </span>
+            </div>
           </div>
           <p className="text-xs text-cream/70 leading-relaxed font-body">
             Indulge in the finest culinary heritage where authentic Arabian spices merge with upscale contemporary flavors. Experience dining fit for royalty in the heart of Bahawalpur.
