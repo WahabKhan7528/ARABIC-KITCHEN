@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-dark: #1A0A00;
+  --color-wood-brown: #3D1200;
+  --color-mid-wood: #6B2E0E;
+  --color-gold: #C9952A;
+  --color-gold-light: #E8BA5A;
+  --color-cream: #F5E6C8;
+  --color-ivory: #FAF3E0;
+  --color-charcoal: #1F1108;
+  --color-accent-red: #8B1A1A;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-arabic: 'Scheherazade New', serif;
+}
+
+/* Base resets & behavior configurations */
+html {
+  scroll-behavior: initial; /* Essential to let Lenis handle smooth scroll math */
+  overflow-x: hidden;
+  background-color: var(--color-primary-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  background-color: var(--color-primary-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Webkit scrollbar for premium aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-primary-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-wood-brown);
+  border: 1px solid rgba(201, 149, 42, 0.25);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-mid-wood);
+  border-color: var(--color-gold);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* CSS Keyframes for Infinite Horizontal Marquees */
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 60s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 60s linear infinite;
+}
+
+/* Mobile responsive float elements animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-float-slow {
+  animation: float 14s ease-in-out infinite;
+}
+
+/* GSAP stagger layout reveals transitions optimization */
+.char {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Custom Lightbox focus overlay animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-up {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scale-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
