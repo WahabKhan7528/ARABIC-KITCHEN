@@ -120,20 +120,20 @@ export default function About() {
           className="col-span-1 lg:col-span-7 flex flex-col items-start text-left transform-gpu"
         >
           {/* Header */}
-          <span className="font-arabic text-gold text-base tracking-[0.2em] mb-1">
+          <span className="font-arabic text-gold text-kicker tracking-[0.2em] mb-1">
             قصتنا • تراثنا
           </span>
-          <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-4 tracking-tight leading-none">
+          <h2 className="font-display italic text-title-xl text-ivory mb-4 tracking-tight leading-none">
             Our Story & Heritage
           </h2>
           <MuqarnasArch color="#C9952A" size={50} className="mb-6 !self-start" />
 
           {/* Editorial Paragraph */}
-          <p className="text-sm md:text-base text-cream/80 max-w-xl mb-6 leading-relaxed font-body">
+          <p className="text-body-md text-cream/80 max-w-xl mb-6 leading-relaxed font-body">
             Founded with a vision to merge the majestic culinary history of Arabia with modern upscale casual dining, **Arabic Kitchen** has become a legendary landmark in Bahawalpur. We carefully slow-cook our dishes inside authentic stone ovens, charcoal roasting premium meats to locks in juices and rich, smoky, timeless flavor profiles.
           </p>
 
-          <p className="text-sm md:text-base text-cream/70 max-w-xl mb-10 leading-relaxed font-body">
+          <p className="text-body-md text-cream/70 max-w-xl mb-10 leading-relaxed font-body">
             Every spice is hand-selected from traditional Arabic souks and blended in house, creating an culinary tapestry that honors the traditional roots of Yemeni Mandi, Levant Mezze, and high-end street food favorites.
           </p>
 

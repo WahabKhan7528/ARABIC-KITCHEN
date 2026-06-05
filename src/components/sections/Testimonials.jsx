@@ -41,10 +41,10 @@ export default function Testimonials() {
 
       {/* Main Header */}
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center mb-12 relative z-10 flex flex-col items-center">
-        <span className="font-arabic text-gold text-base tracking-[0.2em] mb-1">
+        <span className="font-arabic text-gold text-kicker tracking-[0.2em] mb-1">
           آراء العملاء
         </span>
-        <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-2 tracking-tight">
+        <h2 className="font-display italic text-title-xl text-ivory mb-2 tracking-tight">
           Royal Guest Testimonials
         </h2>
         <MuqarnasArch color="#C9952A" size={50} />
@@ -84,16 +84,16 @@ export default function Testimonials() {
                 </div>
 
                 {/* Quote Text */}
-                <blockquote className="font-display italic text-lg md:text-2xl text-cream/90 leading-relaxed max-w-xl mx-auto mb-8">
+                <blockquote className="font-display italic text-title-md text-cream/90 leading-relaxed max-w-xl mx-auto mb-8">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
                 {/* Author Credentials */}
                 <cite className="not-italic flex flex-col items-center">
-                  <span className="font-body font-bold text-xs uppercase tracking-[0.2em] text-ivory">
+                  <span className="font-body font-bold text-label-sm uppercase tracking-[0.2em] text-ivory">
                     {t.name}
                   </span>
-                  <span className="font-body text-[10px] uppercase tracking-widest text-gold/80 mt-1">
+                  <span className="font-body text-label-xs uppercase tracking-widest text-gold/80 mt-1">
                     {t.city}, Pakistan
                   </span>
                 </cite>

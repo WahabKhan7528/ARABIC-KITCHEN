@@ -5,8 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function useLenis() {
+export default function useLenis(isActive = true) {
   useEffect(() => {
+    if (!isActive) return;
+
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.4,
@@ -30,5 +32,5 @@ export default function useLenis() {
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
     };
-  }, []);
+  }, [isActive]);
 }

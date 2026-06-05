@@ -66,10 +66,10 @@ export default function Gallery() {
 
       {/* Main Header */}
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center mb-16 relative z-10 flex flex-col items-center">
-        <span className="font-arabic text-[#C9952A] text-base tracking-[0.2em] mb-1">
+        <span className="font-arabic text-[#C9952A] text-kicker tracking-[0.2em] mb-1">
           معرض الصور
         </span>
-        <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-2 tracking-tight">
+        <h2 className="font-display italic text-title-xl text-ivory mb-2 tracking-tight">
           Visual Culinary Art
         </h2>
         <MuqarnasArch color="#C9952A" size={60} />
@@ -88,11 +88,11 @@ export default function Gallery() {
               <div className="absolute inset-0 bg-[#1F1108]/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-center items-center p-4 text-center">
                 {/* Gold boundary border */}
                 <div className="absolute inset-3 border border-[#C9952A]/20 pointer-events-none" />
-                <span className="font-arabic text-[#C9952A] text-xs tracking-[0.2em] mb-1.5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">معرض الصور</span>
-                <p className="font-display italic text-base md:text-lg text-ivory tracking-wide max-w-[85%] transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                <span className="font-arabic text-[#C9952A] text-label-sm tracking-[0.2em] mb-1.5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">معرض الصور</span>
+                <p className="font-display italic text-title-sm text-ivory tracking-wide max-w-[85%] transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
                   {img.alt}
                 </p>
-                <span className="mt-3 text-[9px] uppercase tracking-[0.25em] text-[#C9952A] border-t border-[#C9952A]/30 pt-1.5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                <span className="mt-3 text-label-xs uppercase tracking-[0.25em] text-[#C9952A] border-t border-[#C9952A]/30 pt-1.5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
                   Click to view
                 </span>
               </div>
@@ -154,7 +154,7 @@ export default function Gallery() {
               className="max-w-full max-h-[70vh] object-contain select-none pointer-events-none"
             />
             <div className="w-full text-center mt-3 py-1">
-              <p className="font-display italic text-lg text-ivory tracking-wide">
+              <p className="font-display italic text-title-sm text-ivory tracking-wide">
                 {galleryImages[lightboxIndex].alt}
               </p>
             </div>

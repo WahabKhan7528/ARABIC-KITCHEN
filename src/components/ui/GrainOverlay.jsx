@@ -1,16 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function GrainOverlay() {
-  const canvasRef = useRef(null);
+  const [grainBg, setGrainBg] = useState('');
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-
-    // Create a small pattern canvas for highly optimized grain generation
+    // Create a small pattern canvas for highly optimized grain generation (runs only once on mount)
     const patternCanvas = document.createElement('canvas');
     patternCanvas.width = 128;
     patternCanvas.height = 128;
@@ -18,59 +12,52 @@ export default function GrainOverlay() {
     const pData = pCtx.createImageData(128, 128);
     const d = pData.data;
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
+    // Generate static random noise
+    for (let i = 0; i < d.length; i += 4) {
+      const val = Math.floor(Math.random() * 255);
+      d[i] = val;     // Red
+      d[i + 1] = val; // Green
+      d[i + 2] = val; // Blue
+      d[i + 3] = 18;  // Opacity (Alpha in scale of 255)
+    }
+    pCtx.putImageData(pData, 0, 0);
 
-    const updateNoise = () => {
-      for (let i = 0; i < d.length; i += 4) {
-        const val = Math.floor(Math.random() * 255);
-        d[i] = val;     // Red
-        d[i + 1] = val; // Green
-        d[i + 2] = val; // Blue
-        d[i + 3] = 16;  // Opacity (Alpha in scale of 255)
-      }
-      pCtx.putImageData(pData, 0, 0);
-    };
-
-    const render = () => {
-      if (canvas.width === 0 || canvas.height === 0) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Fast update noise occasionally (randomize grain visual)
-      if (Math.random() > 0.3) {
-        updateNoise();
-      }
-
-      const pattern = ctx.createPattern(patternCanvas, 'repeat');
-      if (pattern) {
-        ctx.fillStyle = pattern;
-        ctx.save();
-        // Translate randomly to animate film grain tactile feel
-        ctx.translate(Math.random() * 128, Math.random() * 128);
-        ctx.fillRect(-128, -128, canvas.width + 256, canvas.height + 256);
-        ctx.restore();
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationFrameId);
-    };
+    // Convert pattern to base64 data URL for fast CSS background rendering
+    setGrainBg(patternCanvas.toDataURL());
   }, []);
 
+  if (!grainBg) return null;
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[9999]"
-      style={{ mixBlendMode: 'overlay', opacity: 0.035 }}
-    />
+    <>
+      <style>{`
+        @keyframes grain-movement {
+          0%, 100% { transform: translate(0, 0); }
+          10% { transform: translate(-1%, -2%); }
+          20% { transform: translate(-3%, 1%); }
+          30% { transform: translate(-2%, -3%); }
+          40% { transform: translate(-1%, 3%); }
+          50% { transform: translate(-3%, 2%); }
+          60% { transform: translate(-2%, 0); }
+          70% { transform: translate(0, 2%); }
+          80% { transform: translate(1%, 3%); }
+          90% { transform: translate(-2%, 1%); }
+        }
+      `}</style>
+      <div
+        className="fixed pointer-events-none z-[9999]"
+        style={{
+          top: '-50%',
+          left: '-50%',
+          width: '200%',
+          height: '200%',
+          backgroundImage: `url(${grainBg})`,
+          backgroundRepeat: 'repeat',
+          mixBlendMode: 'overlay',
+          opacity: 0.35, // Balanced subtle overlay opacity
+          animation: 'grain-movement 0.8s steps(8) infinite',
+        }}
+      />
+    </>
   );
 }

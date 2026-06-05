@@ -125,7 +125,7 @@ export default function MenuCard({ image, category, name, arabicName, price, des
           loading="lazy"
         />
         {/* Category Badge overlay */}
-        <div className="absolute top-4 left-4 bg-[#1A0A00]/80 border border-[#C9952A]/30 px-3 py-1 rounded-[2px] text-[9px] font-body font-semibold tracking-widest text-[#FAF3E0] uppercase">
+        <div className="absolute top-4 left-4 bg-[#1A0A00]/80 border border-[#C9952A]/30 px-3 py-1 rounded-[2px] text-label-xs font-body font-semibold tracking-widest text-[#FAF3E0] uppercase">
           {category}
         </div>
       </div>
@@ -136,15 +136,15 @@ export default function MenuCard({ image, category, name, arabicName, price, des
         <div className="w-full">
           {/* Sibling Titles: English + Arabic Calligraphy Accent */}
           <div className="flex items-start justify-between gap-2 w-full mb-1">
-            <h3 className="font-display italic text-lg md:text-xl text-ivory tracking-wide truncate">
+            <h3 className="font-display italic text-title-sm text-ivory tracking-wide truncate">
               {name}
             </h3>
-            <span className="font-arabic text-sm text-gold/80 shrink-0 self-center">
+            <span className="font-arabic text-body-sm text-gold/80 shrink-0 self-center">
               {arabicName}
             </span>
           </div>
           
-          <p className="text-xs text-cream/70 line-clamp-2 leading-relaxed font-body mb-2 pr-2">
+          <p className="text-body-sm text-cream/70 line-clamp-2 leading-relaxed font-body mb-2 pr-2">
             {description}
           </p>
         </div>
@@ -152,15 +152,15 @@ export default function MenuCard({ image, category, name, arabicName, price, des
         {/* Action Row: Price + Add Button */}
         <div className="flex items-center justify-between w-full mt-auto pt-2 border-t border-gold/10">
           <div className="flex flex-col">
-            <span className="text-[9px] uppercase tracking-widest text-cream/50 font-body">Price</span>
-            <span className="text-sm font-semibold text-gold font-body">PKR {price}</span>
+            <span className="text-label-xs uppercase tracking-widest text-cream/50 font-body">Price</span>
+            <span className="text-body-md font-semibold text-gold font-body">PKR {price}</span>
           </div>
 
           <div className="relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0">
-            <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#C9952A] group-hover:-translate-y-8 transition-transform duration-300 font-body block text-right w-full pr-1">
+            <span className="text-label-sm uppercase font-bold tracking-[0.15em] text-[#C9952A] group-hover:-translate-y-8 transition-transform duration-300 font-body block text-right w-full pr-1">
               VIEW DETAILS
             </span>
-            <span className="absolute right-0 translate-y-8 group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center gap-1.5 text-[9px] font-bold tracking-[0.12em] text-[#1A0A00] bg-[#C9952A] w-full h-full rounded-[2px] font-body">
+            <span className="absolute right-0 translate-y-8 group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] text-[#1A0A00] bg-[#C9952A] w-full h-full rounded-[2px] font-body">
               <ShoppingBag className="w-3.5 h-3.5" />
               ADD TO ORDER
             </span>

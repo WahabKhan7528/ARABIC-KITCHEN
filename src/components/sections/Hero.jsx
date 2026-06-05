@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import HeroParticles from '../ui/HeroParticles';
 import { KhatamPattern } from '../ui/ArabicPattern';
-import useMagneticHover from '../../hooks/useMagneticHover';
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -10,9 +9,6 @@ export default function Hero() {
   const subtitleRef = useRef(null);
   const imageContainerRef = useRef(null);
   const bottomRef = useRef(null);
-
-  const ctaPrimary = useMagneticHover(0.35, 80);
-  const ctaSecondary = useMagneticHover(0.35, 80);
 
   const headlineString = "A Royal Feast";
 
@@ -100,7 +96,7 @@ export default function Hero() {
         <div className="w-full lg:w-3/5 flex flex-col items-start text-left perspective-[800px]">
           
           {/* Authentic Arabic Accent Calligraphy */}
-          <span className="font-arabic text-gold text-lg md:text-xl tracking-[0.25em] mb-3 select-none flex items-center gap-3">
+          <span className="font-arabic text-gold text-title-sm tracking-[0.25em] mb-3 select-none flex items-center gap-3">
             <span>مأدبة ملكية</span>
             <span className="h-[1px] w-8 bg-gold/60 inline-block" />
           </span>
@@ -108,7 +104,7 @@ export default function Hero() {
           {/* Headline containing letter character splittings */}
           <h1
             ref={headlineRef}
-            className="font-display italic text-6xl md:text-8xl text-ivory tracking-tight leading-[0.95] mb-6 overflow-hidden flex flex-wrap"
+            className="font-display italic text-hero text-ivory tracking-tight leading-[0.95] mb-6 overflow-hidden flex flex-wrap"
           >
             {headlineString.split("").map((char, index) => (
               <span
@@ -123,22 +119,20 @@ export default function Hero() {
 
           {/* Subline and CTAs block */}
           <div ref={subtitleRef} className="flex flex-col items-start opacity-0 transform-gpu">
-            <p className="text-sm md:text-base text-cream/80 max-w-lg mb-8 leading-relaxed font-body">
+            <p className="text-body-md text-cream/80 max-w-lg mb-8 leading-relaxed font-body">
               Step into an opulent culinary sanctuary. We draw inspiration from centuries-old spice routes to bring you masterfully prepared mutton mandi, sizzling grills, and elite contemporary fast food.
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
               <a
-                ref={ctaPrimary}
                 href="#menu"
-                className="px-8 py-3.5 rounded-full bg-[#C9952A] text-[#1A0A00] text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-all duration-300 font-body"
+                className="px-8 py-3.5 rounded-full bg-[#C9952A] text-[#1A0A00] text-label-sm font-bold uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-all duration-300 font-body"
               >
                 Explore Menu
               </a>
               <a
-                ref={ctaSecondary}
                 href="#reserve"
-                className="px-8 py-3.5 rounded-full border border-gold/50 bg-transparent text-xs font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold/10 transition-all duration-300 font-body"
+                className="px-8 py-3.5 rounded-full border border-gold/50 bg-transparent text-label-sm font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold/10 transition-all duration-300 font-body"
               >
                 Reserve Table
               </a>

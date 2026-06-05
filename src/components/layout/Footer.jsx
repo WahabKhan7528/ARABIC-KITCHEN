@@ -21,15 +21,15 @@ export default function Footer() {
               className="h-10 w-10 object-cover rounded-full border border-[#C9952A]/30 transition-transform duration-300 group-hover:scale-105 shadow-sm" 
             />
             <div className="flex flex-col leading-none">
-              <span className="font-display italic text-2xl text-ivory tracking-wide">
+              <span className="font-display italic text-title-md text-ivory tracking-wide">
                 Arabic Kitchen
               </span>
-              <span className="font-arabic text-xs text-gold/80 tracking-widest -mt-0.5 self-start">
+              <span className="font-arabic text-label-sm text-gold/80 tracking-widest -mt-0.5 self-start">
                 المطبخ العربي
               </span>
             </div>
           </div>
-          <p className="text-xs text-cream/70 leading-relaxed font-body">
+          <p className="text-body-sm text-cream/70 leading-relaxed font-body">
             Indulge in the finest culinary heritage where authentic Arabian spices merge with upscale contemporary flavors. Experience dining fit for royalty in the heart of Bahawalpur.
           </p>
           
@@ -76,47 +76,47 @@ export default function Footer() {
 
         {/* Column 2: Navigation Links */}
         <div className="flex flex-col gap-4">
-          <h4 className="font-display italic text-lg text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
+          <h4 className="font-display italic text-title-sm text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
             Navigation
           </h4>
           <div className="flex flex-col gap-2">
-            <a href="#home" className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Home</a>
-            <a href="#menu" className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Featured Menu</a>
-            <a href="#about" className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Our Story</a>
-            <a href="#signatures" className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Signature Dishes</a>
-            <a href="#reserve" className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Reservations</a>
+            <a href="#home" className="text-label-sm uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Home</a>
+            <a href="#menu" className="text-label-sm uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Featured Menu</a>
+            <a href="#about" className="text-label-sm uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Our Story</a>
+            <a href="#signatures" className="text-label-sm uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Signature Dishes</a>
+            <a href="#reserve" className="text-label-sm uppercase tracking-widest text-cream/70 hover:text-gold transition-colors duration-300 font-body">Reservations</a>
           </div>
         </div>
 
         {/* Column 3: Contact Info */}
         <div className="flex flex-col gap-4">
-          <h4 className="font-display italic text-lg text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
+          <h4 className="font-display italic text-title-sm text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
             Get in Touch
           </h4>
           <div className="flex flex-col gap-3">
             <div className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-gold mt-0.5 shrink-0" />
-              <span className="text-xs text-cream/70 leading-relaxed font-body">
+              <span className="text-body-sm text-cream/70 leading-relaxed font-body">
                 Model Town A, Near Library Ground, Bahawalpur, Pakistan
               </span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gold shrink-0" />
-              <span className="text-xs text-cream/70 font-body">+92 62 1234567</span>
+              <span className="text-body-sm text-cream/70 font-body">+92 62 1234567</span>
             </div>
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-gold shrink-0" />
-              <span className="text-xs text-cream/70 font-body">www.arabickitchenroyal.com</span>
+              <span className="text-body-sm text-cream/70 font-body">www.arabickitchenroyal.com</span>
             </div>
           </div>
         </div>
 
         {/* Column 4: Operational Hours */}
         <div className="flex flex-col gap-4">
-          <h4 className="font-display italic text-lg text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
+          <h4 className="font-display italic text-title-sm text-ivory tracking-wider select-none border-b border-gold/10 pb-2">
             Opening Hours
           </h4>
-          <div className="flex flex-col gap-2 font-body text-xs text-cream/70">
+          <div className="flex flex-col gap-2 font-body text-body-sm text-cream/70">
             <div className="flex justify-between border-b border-gold/10 pb-1">
               <span>Mon – Thu</span>
               <span className="text-gold">4:00 PM – 11:30 PM</span>
@@ -135,9 +135,13 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom copyright and geometric watermark */}
-      <div className="max-w-6xl mx-auto pt-8 border-t border-gold/10 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10 font-body text-[11px] text-cream/50 tracking-wider">
+      <div className="max-w-6xl mx-auto pt-8 border-t border-gold/10 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10 font-body text-label-sm text-cream/50 tracking-wider">
         <span>&copy; {currentYear} Arabic Kitchen Restaurant. All Rights Reserved.</span>
-        <span>Crafted in Bahawalpur, Pakistan</span>
+        <div className="flex items-center gap-4">
+          <span>Crafted in Bahawalpur, Pakistan</span>
+          <span className="text-gold/20">|</span>
+          <a href="#dashboard" className="text-gold hover:text-gold-light hover:underline transition-colors font-semibold">Staff Portal</a>
+        </div>
       </div>
     </footer>
   );

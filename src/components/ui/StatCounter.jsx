@@ -57,16 +57,16 @@ export default function StatCounter({ target, label, duration = 1.8, suffix = ''
   return (
     <div ref={containerRef} className="flex flex-col items-center justify-center p-4 min-w-[140px]">
       {/* Visual Number Stack */}
-      <div className="text-4xl md:text-5xl font-semibold text-gold font-display flex items-baseline gap-0.5 select-none">
+      <div className="text-title-xl font-semibold text-gold font-display flex items-baseline gap-0.5 select-none">
         <span>{currentVal}</span>
-        {suffix && <span className="text-2xl text-gold-light ml-0.5">{suffix}</span>}
+        {suffix && <span className="text-title-md text-gold-light ml-0.5">{suffix}</span>}
       </div>
 
       {/* Drawing Line Accent */}
       <div ref={lineRef} className="h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent mt-2 mb-1 w-0 opacity-0" />
 
       {/* Label descriptive text */}
-      <span className="text-[11px] md:text-xs tracking-[0.2em] text-cream uppercase text-center font-body mt-1 select-none">
+      <span className="text-label-sm tracking-[0.2em] text-cream uppercase text-center font-body mt-1 select-none">
         {label}
       </span>
     </div>

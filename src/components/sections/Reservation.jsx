@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Phone, Calendar, Clock, Users, MessageSquare, Check, User } from 'lucide-react';
 import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
-import useMagneticHover from '../../hooks/useMagneticHover';
+import { addReservation } from '../../utils/reservationStorage';
 
 export default function Reservation() {
-  const submitBtnRef = useMagneticHover(0.3, 80);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -50,6 +49,9 @@ export default function Reservation() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    // Save reservation to local storage
+    addReservation(formData);
 
     // Trigger canvas starburst confetti cascade on success
     setIsSuccess(true);
@@ -120,30 +122,30 @@ export default function Reservation() {
         
         {/* Left Column: Royal Invitation (5 cols) */}
         <div className="col-span-1 lg:col-span-5 flex flex-col items-start text-left relative z-10">
-          <span className="font-arabic text-gold text-base tracking-[0.2em] mb-1 block">
+          <span className="font-arabic text-gold text-kicker tracking-[0.2em] mb-1 block">
             حجز طاولة
           </span>
-          <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-4 tracking-tight leading-tight">
+          <h2 className="font-display italic text-title-xl text-ivory mb-4 tracking-tight leading-tight">
             Reserve A Royal Table
           </h2>
           <MuqarnasArch color="#C9952A" size={50} className="mb-6 !self-start" />
           
-          <p className="text-sm md:text-base text-cream/80 max-w-md mb-6 leading-relaxed font-body">
+          <p className="text-body-md text-cream/80 max-w-md mb-6 leading-relaxed font-body">
             Experience our magnificent dining hall. Secure your sanctuary table inside Model Town's premier fine dining venue, where centuries-old slow-cooked recipes meet gold-standard royal hospitality.
           </p>
 
-          <p className="text-xs text-gold-light/95 max-w-sm mb-10 leading-relaxed font-body">
+          <p className="text-body-sm text-gold-light/95 max-w-sm mb-10 leading-relaxed font-body">
             For private catering concierges, bespoke family gatherings, or events larger than 10 guests, please contact our guest host directly.
           </p>
 
           {/* WhatsApp Direct CTA */}
           <div className="flex flex-col gap-1.5 pt-6 border-t border-gold/15 w-full">
-            <span className="text-[9px] uppercase tracking-widest text-cream/40 font-body">Instant Booking</span>
+            <span className="text-label-xs uppercase tracking-widest text-cream/40 font-body">Instant Booking</span>
             <a
               href={getWhatsAppLink()}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-semibold text-gold hover:text-gold-light font-body flex items-center gap-2 group transition-colors"
+              className="text-label-sm font-semibold text-gold hover:text-gold-light font-body flex items-center gap-2 group transition-colors"
             >
               Prefer WhatsApp? Message Concierge &rarr;
             </a>
@@ -162,13 +164,13 @@ export default function Reservation() {
                 <div className="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center mb-6">
                   <Check className="w-8 h-8 text-gold animate-pulse" />
                 </div>
-                <h3 className="font-display italic text-2xl text-gold mb-2">
+                <h3 className="font-display italic text-title-md text-gold mb-2">
                   A Royal Acknowledgment
                 </h3>
-                <p className="text-xs text-cream/80 leading-relaxed font-body max-w-xs">
+                <p className="text-body-sm text-cream/80 leading-relaxed font-body max-w-xs">
                   Your reservation request has been received. Our host will contact you shortly to confirm your booking details.
                 </p>
-                <p className="text-[10px] text-gold/60 uppercase tracking-widest mt-6 font-body">
+                <p className="text-label-xs text-gold/60 uppercase tracking-widest mt-6 font-body">
                   We await your arrival
                 </p>
               </div>
@@ -179,7 +181,7 @@ export default function Reservation() {
                 {/* Grid Name & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col items-start gap-1">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <User className="w-3 h-3 text-gold" /> Full Name
                     </label>
                     <input
@@ -188,13 +190,13 @@ export default function Reservation() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="e.g. Muhammad Ahmad"
-                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-xs text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
+                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     />
-                    {errors.name && <span className="text-[9px] text-accent-red mt-0.5">{errors.name}</span>}
+                    {errors.name && <span className="text-label-xs text-accent-red mt-0.5">{errors.name}</span>}
                   </div>
 
                   <div className="flex flex-col items-start gap-1">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <Phone className="w-3 h-3 text-gold" /> Phone (Pakistan)
                     </label>
                     <input
@@ -203,16 +205,16 @@ export default function Reservation() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="e.g. 03001234567"
-                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-xs text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
+                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     />
-                    {errors.phone && <span className="text-[9px] text-accent-red mt-0.5">{errors.phone}</span>}
+                    {errors.phone && <span className="text-label-xs text-accent-red mt-0.5">{errors.phone}</span>}
                   </div>
                 </div>
 
                 {/* Grid Date & Time */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col items-start gap-1">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <Calendar className="w-3 h-3 text-gold" /> Date
                     </label>
                     <input
@@ -220,13 +222,13 @@ export default function Reservation() {
                       name="date"
                       value={formData.date}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-xs text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30 [color-scheme:dark]"
+                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30 [color-scheme:dark]"
                     />
-                    {errors.date && <span className="text-[9px] text-accent-red mt-0.5">{errors.date}</span>}
+                    {errors.date && <span className="text-label-xs text-accent-red mt-0.5">{errors.date}</span>}
                   </div>
 
                   <div className="flex flex-col items-start gap-1">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <Clock className="w-3 h-3 text-gold" /> Time
                     </label>
                     <input
@@ -234,7 +236,7 @@ export default function Reservation() {
                       name="time"
                       value={formData.time}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-xs text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30 [color-scheme:dark]"
+                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30 [color-scheme:dark]"
                     />
                   </div>
                 </div>
@@ -242,14 +244,14 @@ export default function Reservation() {
                 {/* Grid Guests & Requests */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex flex-col items-start gap-1 sm:col-span-1">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <Users className="w-3 h-3 text-gold" /> Guests
                     </label>
                     <select
                       name="guests"
                       value={formData.guests}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2.5 text-xs text-ivory focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
+                      className="w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2.5 text-body-sm text-ivory focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                         <option key={num} value={num} className="bg-charcoal text-ivory">{num} Guests</option>
@@ -258,7 +260,7 @@ export default function Reservation() {
                   </div>
 
                   <div className="flex flex-col items-start gap-1 sm:col-span-2">
-                    <label className="text-[9px] uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <MessageSquare className="w-3 h-3 text-gold" /> Special Requests
                     </label>
                     <input
@@ -267,7 +269,7 @@ export default function Reservation() {
                       value={formData.requests}
                       onChange={handleInputChange}
                       placeholder="e.g. Birthday setup, window table"
-                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-xs text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
+                      className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     />
                   </div>
                 </div>
@@ -275,9 +277,8 @@ export default function Reservation() {
                 {/* Submit triggers */}
                 <div className="pt-4 flex flex-col gap-4">
                   <button
-                    ref={submitBtnRef}
                     type="submit"
-                    className="w-full py-3 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-body text-xs font-bold uppercase tracking-[0.2em] rounded-full transition-colors cursor-pointer select-none"
+                    className="w-full py-3 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-body text-label-sm font-bold uppercase tracking-[0.2em] rounded-full transition-colors cursor-pointer select-none"
                   >
                     Reserve My Table
                   </button>

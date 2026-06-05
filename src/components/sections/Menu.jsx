@@ -239,10 +239,10 @@ export default function Menu() {
 
       {/* Header Block */}
       <div className="max-w-6xl mx-auto px-6 md:px-12 w-full text-center mb-6 relative z-20 flex flex-col items-center">
-        <span className="animate-on-scroll font-arabic text-[#C9952A] text-base tracking-[0.2em] mb-1 block">
+        <span className="animate-on-scroll font-arabic text-[#C9952A] text-kicker tracking-[0.2em] mb-1 block">
           قائمة الطعام
         </span>
-        <h2 className="animate-on-scroll font-display italic text-4xl md:text-5xl text-ivory mb-2 tracking-tight">
+        <h2 className="animate-on-scroll font-display italic text-title-xl text-ivory mb-2 tracking-tight">
           Featured Menu
         </h2>
         <div className="animate-on-scroll">
@@ -255,7 +255,7 @@ export default function Menu() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-[10px] md:text-xs uppercase font-body font-semibold tracking-wider transition-all duration-300 border ${
+              className={`px-4 py-2 rounded-full text-label-sm uppercase font-body font-semibold tracking-wider transition-all duration-300 border ${
                 activeCategory === cat
                   ? "bg-[#C9952A] text-[#1A0A00] border-[#C9952A] shadow-[0_0_15px_rgba(201,149,42,0.25)]"
                   : "bg-transparent text-cream/70 border-cream/20 hover:border-cream/50"

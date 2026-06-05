@@ -16,10 +16,10 @@ export default function Contact() {
 
       {/* Main Header */}
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center mb-16 relative z-10 flex flex-col items-center">
-        <span className="font-arabic text-[#C9952A] text-base tracking-[0.2em] mb-1">
+        <span className="font-arabic text-[#C9952A] text-kicker tracking-[0.2em] mb-1">
           اتصل بنا
         </span>
-        <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-2 tracking-tight">
+        <h2 className="font-display italic text-title-xl text-ivory mb-2 tracking-tight">
           Find The Royal Table
         </h2>
         <MuqarnasArch color="#C9952A" size={60} />
@@ -57,8 +57,8 @@ export default function Contact() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-widest text-cream/40 font-body">Address</span>
-                <span className="text-sm font-semibold text-ivory font-body mt-0.5 leading-relaxed">
+                <span className="text-label-sm uppercase tracking-widest text-cream/40 font-body">Address</span>
+                <span className="text-body-md font-semibold text-ivory font-body mt-0.5 leading-relaxed">
                   Model Town A, Near Library Ground, Bahawalpur, Pakistan
                 </span>
               </div>
@@ -70,8 +70,8 @@ export default function Contact() {
                 <Phone className="w-5 h-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-widest text-cream/40 font-body">Call Us</span>
-                <span className="text-sm font-semibold text-ivory font-body mt-0.5">
+                <span className="text-label-sm uppercase tracking-widest text-cream/40 font-body">Call Us</span>
+                <span className="text-body-md font-semibold text-ivory font-body mt-0.5">
                   +92 62 1234567 / +92 300 1234567
                 </span>
               </div>
@@ -87,8 +87,8 @@ export default function Contact() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-widest text-cream/40 font-body">Follow</span>
-                <span className="text-sm font-semibold text-ivory font-body mt-0.5">
+                <span className="text-label-sm uppercase tracking-widest text-cream/40 font-body">Follow</span>
+                <span className="text-body-md font-semibold text-ivory font-body mt-0.5">
                   @arabickitchen.theroyaltable
                 </span>
               </div>
@@ -100,12 +100,12 @@ export default function Contact() {
           <div className="border border-[#C9952A]/20 p-6 bg-[#1F1108]/90 rounded-[2px] w-full shadow-[0_10px_25px_rgba(0,0,0,0.4)]">
             <div className="flex items-center gap-2 mb-4 border-b border-gold/10 pb-2">
               <Clock className="w-4 h-4 text-gold shrink-0" />
-              <h4 className="font-display italic text-lg font-semibold text-ivory">
+              <h4 className="font-display italic text-title-sm font-semibold text-ivory">
                 Operational Hours
               </h4>
             </div>
 
-            <div className="space-y-2 font-body text-xs text-cream/80">
+            <div className="space-y-2 font-body text-body-sm text-cream/80">
               <div className="flex justify-between border-b border-gold/5 pb-1">
                 <span>Monday – Thursday</span>
                 <span className="font-semibold text-gold">4:00 PM – 11:30 PM</span>

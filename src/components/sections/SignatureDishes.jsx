@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
-import useMagneticHover from '../../hooks/useMagneticHover';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,10 +71,10 @@ export default function SignatureDishes() {
 
       {/* Main Header */}
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center mb-16 relative z-10 flex flex-col items-center">
-        <span className="font-arabic text-gold text-base tracking-[0.2em] mb-1">
+        <span className="font-arabic text-gold text-kicker tracking-[0.2em] mb-1">
           أطباقنا المميزة
         </span>
-        <h2 className="font-display italic text-4xl md:text-5xl text-ivory mb-2 tracking-tight">
+        <h2 className="font-display italic text-title-xl text-ivory mb-2 tracking-tight">
           Signature Masterpieces
         </h2>
         <MuqarnasArch color="#C9952A" size={60} />
@@ -110,27 +109,27 @@ export default function SignatureDishes() {
               <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
                 {/* Double title scrub-responsive */}
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="font-arabic text-gold/80 text-sm">{dish.arabicTitle}</span>
+                  <span className="font-arabic text-gold/80 text-body-sm">{dish.arabicTitle}</span>
                   <div className="h-[1px] w-6 bg-gold/30" />
                 </div>
                 
-                <h3 className="scrub-title font-display italic text-3xl md:text-4xl text-ivory leading-none mb-4 select-none">
+                <h3 className="scrub-title font-display italic text-title-lg text-ivory leading-none mb-4 select-none">
                   {dish.title}
                 </h3>
                 
-                <p className="text-sm text-cream/80 leading-relaxed font-body mb-6">
+                <p className="text-body-md text-cream/80 leading-relaxed font-body mb-6">
                   {dish.description}
                 </p>
 
                 <div className="flex items-center gap-6 border-t border-gold/10 pt-4 w-full">
                   <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-widest text-cream/40 font-body">Price</span>
-                    <span className="text-lg font-semibold text-gold font-body">PKR {dish.price}</span>
+                    <span className="text-label-xs uppercase tracking-widest text-cream/40 font-body">Price</span>
+                    <span className="text-body-lg font-semibold text-gold font-body">PKR {dish.price}</span>
                   </div>
                   
                   <a
                     href="#reserve"
-                    className="px-6 py-2.5 rounded-full bg-gold hover:bg-gold-light text-[#1A0A00] font-body text-xs font-bold uppercase tracking-[0.18em] transition-colors"
+                    className="px-6 py-2.5 rounded-full bg-gold hover:bg-gold-light text-[#1A0A00] font-body text-label-sm font-bold uppercase tracking-[0.18em] transition-colors"
                   >
                     Order Now
                   </a>

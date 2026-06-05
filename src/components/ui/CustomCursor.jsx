@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 export default function CustomCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  
-  const [isHovered, setIsHovered] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
 
   // Mouse position targets
@@ -70,14 +68,14 @@ export default function CustomCursor() {
       animationFrameId = requestAnimationFrame(updatePosition);
     };
 
-    // Interactive element hover selectors
+    // Interactive element hover selectors (directly manipulating classes to avoid React re-renders)
     const handleMouseOver = (e) => {
       const target = e.target;
       if (!target) return;
       
       const isInteractive = target.closest('a, button, [role="button"], input, select, textarea, .interactive-hover, .menu-card-wrapper, .group');
-      if (isInteractive) {
-        setIsHovered(true);
+      if (isInteractive && ringRef.current) {
+        ringRef.current.classList.add('cursor-hovered');
       }
     };
 
@@ -86,16 +84,16 @@ export default function CustomCursor() {
       if (!target) return;
 
       const isInteractive = target.closest('a, button, [role="button"], input, select, textarea, .interactive-hover, .menu-card-wrapper, .group');
-      if (isInteractive) {
-        setIsHovered(false);
+      if (isInteractive && ringRef.current) {
+        ringRef.current.classList.remove('cursor-hovered');
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mouseout', handleMouseOut);
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    document.addEventListener('mouseout', handleMouseOut, { passive: true });
     
     animationFrameId = requestAnimationFrame(updatePosition);
 
@@ -113,6 +111,31 @@ export default function CustomCursor() {
 
   return (
     <>
+      <style>{`
+        .custom-cursor-ring {
+          width: 28px;
+          height: 28px;
+          margin-left: -14px;
+          margin-top: -14px;
+          background-color: transparent;
+          border-color: #C9952A;
+        }
+        .custom-cursor-ring.cursor-hovered {
+          width: 56px;
+          height: 56px;
+          margin-left: -28px;
+          margin-top: -28px;
+          background-color: rgba(201, 149, 42, 0.15);
+          border-color: #E8BA5A;
+        }
+        .custom-cursor-symbol {
+          opacity: 0;
+        }
+        .custom-cursor-ring.cursor-hovered .custom-cursor-symbol {
+          opacity: 1;
+        }
+      `}</style>
+
       {/* Inner Dot */}
       <div
         ref={dotRef}
@@ -124,23 +147,12 @@ export default function CustomCursor() {
       {/* Outer Lagging Ring */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[10000] opacity-0 flex items-center justify-center transition-[width,height,margin,background-color,border-color,opacity] duration-300 ease-out border border-[#C9952A]"
+        className="custom-cursor-ring fixed top-0 left-0 rounded-full pointer-events-none z-[10000] opacity-0 flex items-center justify-center transition-[width,height,margin,background-color,border-color,opacity] duration-300 ease-out border"
         style={{
           transform: 'translate3d(0,0,0)',
-          width: isHovered ? '56px' : '28px',
-          height: isHovered ? '56px' : '28px',
-          marginLeft: isHovered ? '-28px' : '-14px',
-          marginTop: isHovered ? '-28px' : '-14px',
-          backgroundColor: isHovered ? 'rgba(201, 149, 42, 0.15)' : 'transparent',
-          borderColor: isHovered ? '#E8BA5A' : '#C9952A',
         }}
       >
-        <span
-          className="text-[9px] font-bold tracking-[0.2em] text-[#FAF3E0] pointer-events-none select-none transition-opacity duration-300 font-body"
-          style={{
-            opacity: isHovered ? 1 : 0,
-          }}
-        >
+        <span className="custom-cursor-symbol text-label-xs font-bold tracking-[0.2em] text-[#FAF3E0] pointer-events-none select-none transition-opacity duration-300 font-body">
           ✦
         </span>
       </div>

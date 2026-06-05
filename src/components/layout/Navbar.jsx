@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import useMagneticHover from '../../hooks/useMagneticHover';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   
-  // Magnetic button hook for primary desktop CTA
-  const bookBtnRef = useMagneticHover(0.35, 80);
-
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 80) {
         setIsScrolled(true);
-      } else {
+      } else if (window.scrollY < 20) {
         setIsScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -34,10 +30,10 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed z-[990] transition-all duration-500 ease-out flex items-center justify-between select-none ${
+        className={`fixed z-[990] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between select-none left-1/2 -translate-x-1/2 animate-fade-in ${
           isScrolled
-            ? 'h-16 mt-4 max-w-5xl left-1/2 -translate-x-1/2 rounded-full border border-[#C9952A]/40 bg-[#1A0A00]/85 backdrop-blur-lg shadow-[0_15px_35px_rgba(0,0,0,0.6)] w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] px-6'
-            : 'h-24 top-0 left-0 w-full bg-transparent border-b border-transparent px-6 md:px-12 animate-fade-in'
+            ? 'h-16 top-4 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-5xl rounded-full border border-[#C9952A]/40 bg-[#1A0A00]/85 backdrop-blur-lg shadow-[0_15px_35px_rgba(0,0,0,0.6)] px-6'
+            : 'h-24 top-0 w-full bg-transparent border border-transparent px-6 md:px-12'
         }`}
       >
         {/* Left Side: Brand Logo & Editorial Typography */}
@@ -48,10 +44,10 @@ export default function Navbar() {
             className="h-10 w-10 md:h-11 md:w-11 object-cover rounded-full border border-[#C9952A]/30 transition-transform duration-300 group-hover:scale-105 shadow-sm" 
           />
           <div className="flex flex-col items-start leading-none">
-            <span className="font-display italic text-lg md:text-xl text-ivory tracking-wide transition-colors duration-300 group-hover:text-gold">
+            <span className="font-display italic text-title-sm text-ivory tracking-wide transition-colors duration-300 group-hover:text-gold">
               Arabic Kitchen
             </span>
-            <span className="font-arabic text-[8px] text-gold/80 tracking-[0.12em] -mt-0.5 self-end">
+            <span className="font-arabic text-label-xs text-gold/80 tracking-[0.12em] -mt-0.5 self-end">
               المطبخ العربي
             </span>
           </div>
@@ -63,7 +59,7 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className="text-[10px] uppercase tracking-[0.2em] font-body font-semibold text-cream/80 hover:text-gold transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-gold after:transition-all after:duration-300 hover:after:w-4"
+              className="text-label-sm uppercase tracking-[0.2em] font-body font-semibold text-cream/80 hover:text-gold transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-gold after:transition-all after:duration-300 hover:after:w-4"
             >
               {link.name}
             </a>
@@ -73,9 +69,8 @@ export default function Navbar() {
         {/* Right Side: CTA Button (Desktop) & Hamburger (Mobile) */}
         <div className="flex items-center gap-4">
           <a
-            ref={bookBtnRef}
             href="#reserve"
-            className="hidden sm:inline-block px-5 py-2 rounded-full border border-[#C9952A]/50 bg-transparent text-[10px] font-bold uppercase tracking-[0.18em] text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] hover:shadow-[0_0_15px_rgba(201,149,42,0.3)] transition-all duration-300 font-body cursor-pointer select-none"
+            className="hidden sm:inline-block px-5 py-2 rounded-full border border-[#C9952A]/50 bg-transparent text-label-sm font-bold uppercase tracking-[0.18em] text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] hover:shadow-[0_0_15px_rgba(201,149,42,0.3)] transition-all duration-300 font-body cursor-pointer select-none"
           >
             Book Table
           </a>
@@ -106,7 +101,7 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="font-display italic text-3xl md:text-4xl text-ivory hover:text-gold transition-colors duration-300 py-1.5 flex flex-col items-center tracking-wide"
+              className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1.5 flex flex-col items-center tracking-wide"
               style={{
                 animationDelay: `${idx * 0.08}s`,
                 transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
@@ -121,7 +116,7 @@ export default function Navbar() {
           <a
             href="#reserve"
             onClick={() => setIsOpen(false)}
-            className="mt-6 px-8 py-3 rounded-full bg-[#C9952A] text-[#1A0A00] font-body font-bold text-xs uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-colors"
+            className="mt-6 px-8 py-3 rounded-full bg-[#C9952A] text-[#1A0A00] font-body font-bold text-label-sm uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-colors"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
               opacity: isOpen ? 1 : 0,
@@ -129,6 +124,19 @@ export default function Navbar() {
             }}
           >
             Book Table
+          </a>
+
+          <a
+            href="#dashboard"
+            onClick={() => setIsOpen(false)}
+            className="mt-2 text-gold/60 hover:text-gold text-label-sm uppercase font-semibold tracking-widest font-body"
+            style={{
+              transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
+              opacity: isOpen ? 1 : 0,
+              transition: 'all 0.6s ease-out 0.4s',
+            }}
+          >
+            Staff Dashboard &rarr;
           </a>
         </div>
       </div>
