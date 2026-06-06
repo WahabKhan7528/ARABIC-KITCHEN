@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
 
 const galleryImages = [
   {

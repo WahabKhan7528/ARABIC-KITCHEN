@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Clock, Globe } from 'lucide-react';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
 
 export default function Contact() {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import HeroParticles from '../ui/HeroParticles';
-import { KhatamPattern } from '../ui/ArabicPattern';
+import HeroParticles from '../../../components/ui/HeroParticles';
+import { KhatamPattern } from '../../../components/ui/ArabicPattern';
 
 export default function Hero() {
   const containerRef = useRef(null);

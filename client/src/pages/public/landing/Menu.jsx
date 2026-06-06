@@ -1,102 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import MenuCard from '../ui/MenuCard';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
+import MenuCard from '../../../components/ui/MenuCard';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Curation of authentic luxury dishes mapping to 5 core categories
-const menuItems = [
-  // 1. Grills & Kebabs
-  {
-    category: "Grills & Kebabs",
-    name: "Mixed Royal Grill",
-    arabicName: "مشويات مشكلة",
-    price: "2,450",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
-    description: "An opulent assortment of seekh kebabs, malai boti, lamb chops, and beef tikka, charred to smoky perfection."
-  },
-  {
-    category: "Grills & Kebabs",
-    name: "Seekh Kabab Arabic Kitchen",
-    arabicName: "سيخ كباب",
-    price: "1,250",
-    image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=600&q=80",
-    description: "Minced beef infused with aromatic house coriander, green chilies, onion, and warm charcoal smoked ghee."
-  },
-  // 2. Arabian Mains
-  {
-    category: "Arabian Mains",
-    name: "Al-Mandi Royal (Lamb)",
-    arabicName: "مندي لحم",
-    price: "2,850",
-    image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=600&q=80",
-    description: "Slow-roasted lamb shoulder served on a bed of long-grain basmati saffron rice, finished with toasted nuts."
-  },
-  {
-    category: "Arabian Mains",
-    name: "Royal Mutton Madhbi",
-    arabicName: "مضبي لحم",
-    price: "2,950",
-    image: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80",
-    description: "Lamb cooked over hot lava stones, seasoned lightly with Hadramout spices, resulting in incredibly tender meat."
-  },
-  // 3. Mezze & Starters
-  {
-    category: "Mezze & Starters",
-    name: "Hummus Beiruti Platter",
-    arabicName: "حمص بيروتي",
-    price: "680",
-    image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=600&q=80",
-    description: "Silky smooth chickpea purée with fresh garlic, parsley, lemon juice, topped with extra virgin olive oil and pine nuts."
-  },
-  {
-    category: "Mezze & Starters",
-    name: "Kibbeh Nabulsieh (3pcs)",
-    arabicName: "كبة مقلية",
-    price: "790",
-    image: "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=600&q=80",
-    description: "Crispy outer shells of cracked bulgur wheat filled with spiced minced lamb, pine nuts, and sumac."
-  },
-  // 4. Burgers & Fast Food
-  {
-    category: "Burgers & Fast Food",
-    name: "The Royal Truffle Burger",
-    arabicName: "برجر ترافل",
-    price: "1,150",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80",
-    description: "Juicy wagyu beef blend patty, glazed brioche bun, house black truffle aioli, and mature cheddar melt."
-  },
-  {
-    category: "Burgers & Fast Food",
-    name: "Shawarma Wrap Arabic Kitchen",
-    arabicName: "شاورما دجاج",
-    price: "750",
-    image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=600&q=80",
-    description: "House-marinated chicken breast shavings wrapped in soft saj bread, slathered in authentic toum garlic paste."
-  },
-  // 5. Desserts & Drinks
-  {
-    category: "Desserts & Drinks",
-    name: "Kunafa Al-Sultani",
-    arabicName: "كنافة سلطانية",
-    price: "1,100",
-    image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80",
-    description: "Crispy shredded kataifi pastry, layered with warm melted sweet akkawi cheese, soaked in orange-blossom syrup."
-  },
-  {
-    category: "Desserts & Drinks",
-    name: "Royal Mint Margarita",
-    arabicName: "مارجريتا النعناع",
-    price: "420",
-    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
-    description: "Refreshing crushed ice drink with muddled garden mint leaves, fresh lime zest, and mineral seltzer."
-  }
-];
+// Curation of authentic luxury dishes mapping to 5 core categories
+
+import { getMenuItems } from '../../../utils/menuStorage';
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [menuItems, setMenuItems] = useState(() => getMenuItems());
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -106,6 +23,14 @@ export default function Menu() {
   const scrollLeftStartRef = useRef(0);
 
   const categories = ["All", "Grills & Kebabs", "Arabian Mains", "Mezze & Starters", "Burgers & Fast Food", "Desserts & Drinks"];
+
+  useEffect(() => {
+    const handleMenuUpdate = () => {
+      setMenuItems(getMenuItems());
+    };
+    window.addEventListener('menuItemsUpdated', handleMenuUpdate);
+    return () => window.removeEventListener('menuItemsUpdated', handleMenuUpdate);
+  }, []);
 
   // Filter items dynamically based on category selector
   const filteredItems = activeCategory === "All" 

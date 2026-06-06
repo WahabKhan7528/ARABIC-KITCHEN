@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, EffectFade } from 'swiper/modules';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
 
 // Import essential Swiper CSS
 import 'swiper/css';

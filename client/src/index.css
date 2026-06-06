@@ -17,17 +17,17 @@
 }
 
 @layer utilities {
-  .text-hero { font-size: clamp(2.6rem, 7vw, 5.5rem); }
-  .text-title-xl { font-size: clamp(2rem, 4.5vw, 3.2rem); }
-  .text-title-lg { font-size: clamp(1.6rem, 3.2vw, 2.4rem); }
-  .text-title-md { font-size: clamp(1.3rem, 2.3vw, 1.8rem); }
-  .text-title-sm { font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
-  .text-body-lg { font-size: clamp(1rem, 1.2vw, 1.125rem); }
-  .text-body-md { font-size: clamp(0.95rem, 1vw, 1.05rem); }
-  .text-body-sm { font-size: clamp(0.85rem, 0.8vw, 0.95rem); }
-  .text-kicker { font-size: clamp(0.9rem, 0.9vw, 1rem); }
-  .text-label-sm { font-size: clamp(0.72rem, 0.7vw, 0.82rem); }
-  .text-label-xs { font-size: clamp(0.62rem, 0.6vw, 0.72rem); }
+  .text-hero { font-size: clamp(2.8rem, 7vw, 6rem); }
+  .text-title-xl { font-size: clamp(2.2rem, 4.5vw, 3.6rem); }
+  .text-title-lg { font-size: clamp(1.8rem, 3.2vw, 2.8rem); }
+  .text-title-md { font-size: clamp(1.5rem, 2.3vw, 2rem); }
+  .text-title-sm { font-size: clamp(1.2rem, 1.6vw, 1.5rem); }
+  .text-body-lg { font-size: clamp(1.1rem, 1.2vw, 1.25rem); }
+  .text-body-md { font-size: clamp(1rem, 1vw, 1.15rem); }
+  .text-body-sm { font-size: clamp(0.9rem, 0.9vw, 1rem); }
+  .text-kicker { font-size: clamp(0.95rem, 0.9vw, 1.05rem); }
+  .text-label-sm { font-size: clamp(0.8rem, 0.8vw, 0.9rem); }
+  .text-label-xs { font-size: clamp(0.75rem, 0.75vw, 0.85rem); }
 }
 
 /* Base resets & behavior configurations */

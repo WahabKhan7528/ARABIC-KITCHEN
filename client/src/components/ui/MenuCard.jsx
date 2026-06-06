@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GirihBorder } from './ArabicPattern';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Check } from 'lucide-react';
+import { addToCart } from '../../utils/orderStorage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +11,7 @@ export default function MenuCard({ image, category, name, arabicName, price, des
   const cardRef = useRef(null);
   const shimmerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -95,6 +97,13 @@ export default function MenuCard({ image, category, name, arabicName, price, des
     }
   };
 
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    addToCart({ image, category, name, price });
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1200);
+  };
+
   return (
     <div
       ref={cardRef}
@@ -156,13 +165,25 @@ export default function MenuCard({ image, category, name, arabicName, price, des
             <span className="text-body-md font-semibold text-gold font-body">PKR {price}</span>
           </div>
 
-          <div className="relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0">
+          <div 
+            onClick={handleAdd}
+            className="relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0 cursor-pointer active:scale-95 transition-transform"
+          >
             <span className="text-label-sm uppercase font-bold tracking-[0.15em] text-[#C9952A] group-hover:-translate-y-8 transition-transform duration-300 font-body block text-right w-full pr-1">
               VIEW DETAILS
             </span>
-            <span className="absolute right-0 translate-y-8 group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] text-[#1A0A00] bg-[#C9952A] w-full h-full rounded-[2px] font-body">
-              <ShoppingBag className="w-3.5 h-3.5" />
-              ADD TO ORDER
+            <span className={`absolute right-0 translate-y-8 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] w-full h-full rounded-[2px] font-body ${isAdded ? 'bg-emerald-700 text-ivory border border-emerald-500' : 'bg-[#C9952A] text-[#1A0A00]'}`}>
+              {isAdded ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-ivory" />
+                  ADDED!
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  ADD TO ORDER
+                </>
+              )}
             </span>
           </div>
         </div>

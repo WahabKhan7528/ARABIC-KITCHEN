@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingBag } from 'lucide-react';
+import { getCart } from '../../utils/orderStorage';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,18 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const updateCount = () => {
+      const cart = getCart();
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      setCartCount(count);
+    };
+
+    updateCount();
+    window.addEventListener('cartUpdated', updateCount);
+    return () => window.removeEventListener('cartUpdated', updateCount);
   }, []);
 
   const navLinks = [
@@ -68,6 +82,21 @@ export default function Navbar() {
 
         {/* Right Side: CTA Button (Desktop) & Hamburger (Mobile) */}
         <div className="flex items-center gap-4">
+          {/* Cart Icon Button */}
+          <a
+            href="#cart"
+            onClick={() => setIsOpen(false)}
+            className="relative p-2 border border-[#C9952A]/35 rounded-full hover:border-[#C9952A] transition-all hover:bg-gold/5 flex items-center justify-center cursor-pointer text-[#C9952A] hover:text-[#E8BA5A]"
+            aria-label="View Cart"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 bg-accent-red text-ivory text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-[#1A0A00] animate-bounce shadow-md font-body">
+                {cartCount}
+              </span>
+            )}
+          </a>
+
           <a
             href="#reserve"
             className="hidden sm:inline-block px-5 py-2 rounded-full border border-[#C9952A]/50 bg-transparent text-label-sm font-bold uppercase tracking-[0.18em] text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] hover:shadow-[0_0_15px_rgba(201,149,42,0.3)] transition-all duration-300 font-body cursor-pointer select-none"
@@ -112,6 +141,19 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          
+          <a
+            href="#cart"
+            onClick={() => setIsOpen(false)}
+            className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1.5 flex flex-col items-center tracking-wide"
+            style={{
+              transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
+              opacity: isOpen ? 1 : 0,
+              transition: 'all 0.5s ease-out 0.2s',
+            }}
+          >
+            My Cart ({cartCount})
+          </a>
           
           <a
             href="#reserve"

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import StatCounter from '../ui/StatCounter';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
+import StatCounter from '../../../components/ui/StatCounter';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
 
 gsap.registerPlugin(ScrollTrigger);
 

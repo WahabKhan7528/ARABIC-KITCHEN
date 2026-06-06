@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Phone, Calendar, Clock, Users, MessageSquare, Check, User } from 'lucide-react';
-import { KhatamPattern, MuqarnasArch } from '../ui/ArabicPattern';
-import { addReservation } from '../../utils/reservationStorage';
+import { KhatamPattern, MuqarnasArch } from '../../../components/ui/ArabicPattern';
+import { addReservation } from '../../../utils/reservationStorage';
 
 export default function Reservation() {
   const [formData, setFormData] = useState({
