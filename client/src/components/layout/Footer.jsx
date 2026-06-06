@@ -140,7 +140,7 @@ export default function Footer() {
         <div className="flex items-center gap-4">
           <span>Crafted in Bahawalpur, Pakistan</span>
           <span className="text-gold/20">|</span>
-          <a href="#dashboard" className="text-gold hover:text-gold-light hover:underline transition-colors font-semibold">Staff Portal</a>
+          <a href="#dashboard" className="text-gold hover:text-gold-light hover:underline transition-colors font-semibold">Dashboard</a>
         </div>
       </div>
     </footer>

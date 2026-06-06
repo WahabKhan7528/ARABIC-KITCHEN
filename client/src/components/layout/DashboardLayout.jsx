@@ -4,22 +4,16 @@ import {
   ShoppingBag, 
   UtensilsCrossed, 
   LogOut,
-  Settings,
-  Users,
-  Package,
-  BarChart
+  Users
 } from 'lucide-react';
 import { KhatamPattern } from '../ui/ArabicPattern';
 
 export default function DashboardLayout({ activeModule, setActiveModule, children, currentTime }) {
   const modules = [
     { id: 'reservations', label: 'Table Reservations', icon: CalendarCheck },
-    { id: 'orders', label: 'Culinary Orders', icon: ShoppingBag },
+    { id: 'orders', label: 'Orders', icon: ShoppingBag },
     { id: 'menu-items', label: 'Menu Items', icon: UtensilsCrossed },
     { id: 'staff', label: 'Staff Directory', icon: Users },
-    { id: 'inventory', label: 'Inventory Stock', icon: Package },
-    { id: 'analytics', label: 'Performance', icon: BarChart },
-    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -36,10 +30,10 @@ export default function DashboardLayout({ activeModule, setActiveModule, childre
             <UtensilsCrossed className="w-6 h-6 text-gold" />
           </div>
           <span className="font-arabic text-label-xs tracking-[0.25em] text-gold/80 block uppercase mb-1">
-            بوابة الموظفين
+            لوحة التحكم
           </span>
           <h1 className="font-display  text-body-lg text-ivory tracking-wide leading-tight">
-            Staff Portal
+            Dashboard
           </h1>
         </div>
 

@@ -91,6 +91,14 @@ export default function MenuItemsModule({ showToast }) {
 
   return (
     <div className="animate-fade-in space-y-6">
+      {/* Header / Intro */}
+      <div className="border-b border-gold/10 pb-4 text-left">
+        <h2 className="text-title-sm font-display text-gold-light">Menu Items</h2>
+        <p className="text-body-sm text-cream/60 mt-1">
+          Browse, add, edit, or delete items from the restaurant's active menu, including prices, categories, descriptions, and images.
+        </p>
+      </div>
+
       {/* Stats Row */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-left">
         <div className="border border-gold/20 bg-[#1F1108]/60 p-4 rounded-[2px] relative overflow-hidden group">

@@ -45,9 +45,11 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed z-[990] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between select-none left-1/2 -translate-x-1/2 animate-fade-in ${
-          isScrolled
-            ? 'h-16 top-4 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-5xl rounded-full border border-[#C9952A]/40 bg-[#1A0A00]/85 backdrop-blur-lg shadow-[0_15px_35px_rgba(0,0,0,0.6)] px-6'
-            : 'h-24 top-0 w-full bg-transparent border border-transparent px-6 md:px-12'
+          isOpen
+            ? 'h-16 top-0 w-full bg-transparent border-transparent px-6'
+            : isScrolled
+              ? 'h-16 top-4 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-7xl rounded-full border border-[#C9952A]/40 bg-[#1A0A00]/85 backdrop-blur-lg shadow-[0_15px_35px_rgba(0,0,0,0.6)] px-6'
+              : 'h-24 top-0 w-full bg-transparent border border-transparent px-6 md:px-12'
         }`}
       >
         {/* Left Side: Brand Logo & Editorial Typography */}
@@ -86,7 +88,7 @@ export default function Navbar() {
           <a
             href="#cart"
             onClick={() => setIsOpen(false)}
-            className="relative p-2 border border-[#C9952A]/35 rounded-full hover:border-[#C9952A] transition-all hover:bg-gold/5 flex items-center justify-center cursor-pointer text-[#C9952A] hover:text-[#E8BA5A]"
+            className={`relative p-2 border border-[#C9952A]/35 rounded-full hover:border-[#C9952A] transition-all hover:bg-gold/5 flex items-center justify-center cursor-pointer text-[#C9952A] hover:text-[#E8BA5A] transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             aria-label="View Cart"
           >
             <ShoppingBag className="w-4 h-4" />
@@ -99,7 +101,7 @@ export default function Navbar() {
 
           <a
             href="#reserve"
-            className="hidden sm:inline-block px-5 py-2 rounded-full border border-[#C9952A]/50 bg-transparent text-label-sm font-bold uppercase tracking-[0.18em] text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] hover:shadow-[0_0_15px_rgba(201,149,42,0.3)] transition-all duration-300 font-body cursor-pointer select-none"
+            className={`hidden sm:inline-block px-5 py-2 rounded-full border border-[#C9952A]/50 bg-transparent text-label-sm font-bold uppercase tracking-[0.18em] text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] hover:shadow-[0_0_15px_rgba(201,149,42,0.35)] transition-all duration-300 font-body cursor-pointer select-none transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           >
             Book Table
           </a>
@@ -117,25 +119,25 @@ export default function Navbar() {
 
       {/* Fullscreen Staggered Mobile Menu Drawer */}
       <div
-        className={`fixed inset-0 w-full h-full bg-[#1A0A00] z-[980] flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
+        className={`fixed inset-0 w-full h-full bg-[#1A0A00] z-[980] flex flex-col items-center justify-start overflow-y-auto transition-all duration-500 ease-in-out ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Background tiling overlay in menu drawer */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#281005_0%,#0F0500_100%)] opacity-95" />
+        <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,#281005_0%,#0F0500_100%)] opacity-95 pointer-events-none" />
         
-        <div className="relative z-10 flex flex-col items-center gap-6 text-center">
+        <div className="relative z-10 flex flex-col items-center gap-5 text-center py-24 px-6 my-auto w-full">
           {navLinks.map((link, idx) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1.5 flex flex-col items-center tracking-wide"
+              className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1 flex flex-col items-center tracking-wide"
               style={{
-                animationDelay: `${idx * 0.08}s`,
+                animationDelay: `${idx * 0.05}s`,
                 transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isOpen ? 1 : 0,
-                transition: 'all 0.5s ease-out',
+                transition: 'all 0.4s ease-out',
               }}
             >
               {link.name}
@@ -145,11 +147,11 @@ export default function Navbar() {
           <a
             href="#cart"
             onClick={() => setIsOpen(false)}
-            className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1.5 flex flex-col items-center tracking-wide"
+            className="font-display italic text-title-lg text-ivory hover:text-gold transition-colors duration-300 py-1 flex flex-col items-center tracking-wide"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
               opacity: isOpen ? 1 : 0,
-              transition: 'all 0.5s ease-out 0.2s',
+              transition: 'all 0.4s ease-out 0.15s',
             }}
           >
             My Cart ({cartCount})
@@ -158,11 +160,11 @@ export default function Navbar() {
           <a
             href="#reserve"
             onClick={() => setIsOpen(false)}
-            className="mt-6 px-8 py-3 rounded-full bg-[#C9952A] text-[#1A0A00] font-body font-bold text-label-sm uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-colors"
+            className="mt-4 px-8 py-3 rounded-full bg-[#C9952A] text-[#1A0A00] font-body font-bold text-label-sm uppercase tracking-[0.2em] hover:bg-[#E8BA5A] transition-colors"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
               opacity: isOpen ? 1 : 0,
-              transition: 'all 0.6s ease-out 0.3s',
+              transition: 'all 0.5s ease-out 0.25s',
             }}
           >
             Book Table
@@ -175,10 +177,10 @@ export default function Navbar() {
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
               opacity: isOpen ? 1 : 0,
-              transition: 'all 0.6s ease-out 0.4s',
+              transition: 'all 0.5s ease-out 0.35s',
             }}
           >
-            Staff Dashboard &rarr;
+            Dashboard &rarr;
           </a>
         </div>
       </div>

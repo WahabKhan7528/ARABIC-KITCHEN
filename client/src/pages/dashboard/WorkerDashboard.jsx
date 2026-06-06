@@ -17,9 +17,6 @@ import {
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import MenuItemsModule from './MenuItemsModule';
 import StaffModule from './StaffModule';
-import InventoryModule from './InventoryModule';
-import AnalyticsModule from './AnalyticsModule';
-import SettingsModule from './SettingsModule';
 
 export default function WorkerDashboard() {
   const [activeTab, setActiveTab] = useState('reservations'); // reservations, orders
@@ -417,44 +414,20 @@ export default function WorkerDashboard() {
         </div>
       )}
 
-      {/* Top Control Header Panel (Simulators) */}
-      <header className="border border-gold/20 bg-[#1F1108]/75 backdrop-blur-md p-4 mb-6 rounded-[2px] flex justify-end items-center gap-6 shadow-[0_15px_30px_rgba(0,0,0,0.5)]">
-        <div className="flex flex-wrap items-center gap-3.5">
-
-            {/* Simulators */}
-            <button 
-              onClick={handleSimulateClientBooking}
-              className="px-3.5 py-2 bg-[#C9952A]/10 border border-[#C9952A]/40 text-[#C9952A] hover:bg-[#C9952A] hover:text-[#1A0A00] text-label-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1 cursor-pointer"
-            >
-              <Play className="w-2.5 h-2.5 fill-current" />
-              + Booking
-            </button>
-
-            <button 
-              onClick={handleSimulateClientOrder}
-              className="px-3.5 py-2 bg-emerald-900/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-[#1A0A00] text-label-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center gap-1 cursor-pointer"
-            >
-              <Play className="w-2.5 h-2.5 fill-current" />
-              + Order
-            </button>
-
-            {/* DB Reset */}
-            <button
-              onClick={handleResetData}
-              className="p-2 border border-gold/10 hover:border-gold/30 bg-[#1A0A00]/40 text-cream/60 hover:text-gold rounded-[2px] transition-colors cursor-pointer"
-              title="Reset databases"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-            </button>
-
-        </div>
-      </header>
 
         {/* ----------------------------------------------------
             TAB 1: RESERVATIONS SECTION
             ---------------------------------------------------- */}
         {activeTab === 'reservations' && (
           <div className="animate-fade-in space-y-6">
+            {/* Header / Intro */}
+            <div className="border-b border-gold/10 pb-4 text-left">
+              <h2 className="text-title-sm font-display text-gold-light">Table Reservations</h2>
+              <p className="text-body-sm text-cream/60 mt-1">
+                Monitor and manage table reservations, seat active walk-in guests, update guest statuses, and assign tables in real-time.
+              </p>
+            </div>
+
             {/* Stats row */}
             <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-left">
               <div className="border border-gold/20 bg-[#1F1108]/60 p-4 rounded-[2px] relative overflow-hidden group">
@@ -634,10 +607,18 @@ export default function WorkerDashboard() {
         )}
 
         {/* ----------------------------------------------------
-            TAB 2: CULINARY ORDERS SECTION
+            TAB 2: ORDERS SECTION
             ---------------------------------------------------- */}
         {activeTab === 'orders' && (
           <div className="animate-fade-in space-y-6">
+            {/* Header / Intro */}
+            <div className="border-b border-gold/10 pb-4 text-left">
+              <h2 className="text-title-sm font-display text-gold-light">Orders Management</h2>
+              <p className="text-body-sm text-cream/60 mt-1">
+                Track and process customer orders, update kitchen preparation stages, dispatch delivery or takeaway packages, and manage billing.
+              </p>
+            </div>
+
             {/* Stats row */}
             <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-left">
               <div className="border border-gold/20 bg-[#1F1108]/60 p-4 rounded-[2px] relative overflow-hidden group">
@@ -887,9 +868,6 @@ export default function WorkerDashboard() {
         )}
 
         {activeTab === 'staff' && <StaffModule />}
-        {activeTab === 'inventory' && <InventoryModule />}
-        {activeTab === 'analytics' && <AnalyticsModule />}
-        {activeTab === 'settings' && <SettingsModule />}
 
         {/* Manual / Edit Booking Overlay Modal (Reservations) */}
         {isModalOpen && (
