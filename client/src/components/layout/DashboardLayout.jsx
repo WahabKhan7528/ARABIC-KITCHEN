@@ -4,7 +4,10 @@ import {
   ShoppingBag, 
   UtensilsCrossed, 
   LogOut,
-  Settings
+  Settings,
+  Users,
+  Package,
+  BarChart
 } from 'lucide-react';
 import { KhatamPattern } from '../ui/ArabicPattern';
 
@@ -13,6 +16,10 @@ export default function DashboardLayout({ activeModule, setActiveModule, childre
     { id: 'reservations', label: 'Table Reservations', icon: CalendarCheck },
     { id: 'orders', label: 'Culinary Orders', icon: ShoppingBag },
     { id: 'menu-items', label: 'Menu Items', icon: UtensilsCrossed },
+    { id: 'staff', label: 'Staff Directory', icon: Users },
+    { id: 'inventory', label: 'Inventory Stock', icon: Package },
+    { id: 'analytics', label: 'Performance', icon: BarChart },
+    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -59,10 +66,10 @@ export default function DashboardLayout({ activeModule, setActiveModule, childre
 
         <div className="p-4 border-t border-gold/15 space-y-3">
           <div className="px-4 py-2 border border-gold/15 bg-[#1A0A00]/50 rounded-[2px] flex flex-col gap-1 text-center">
-            <span className="text-label-xs tracking-widest font-mono text-gold-light/90">
+            <span className="text-body-md tracking-widest font-mono font-bold text-gold-light/90 drop-shadow-md">
               {currentTime ? currentTime.toLocaleTimeString() : '--:--:--'}
             </span>
-            <span className="text-[10px] uppercase text-cream/40 tracking-widest">
+            <span className="text-[10px] font-bold uppercase text-cream/40 tracking-widest">
               {currentTime ? currentTime.toLocaleDateString() : '--/--/----'}
             </span>
           </div>

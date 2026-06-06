@@ -16,6 +16,10 @@ import {
 } from '../../utils/orderStorage';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import MenuItemsModule from './MenuItemsModule';
+import StaffModule from './StaffModule';
+import InventoryModule from './InventoryModule';
+import AnalyticsModule from './AnalyticsModule';
+import SettingsModule from './SettingsModule';
 
 export default function WorkerDashboard() {
   const [activeTab, setActiveTab] = useState('reservations'); // reservations, orders
@@ -881,6 +885,12 @@ export default function WorkerDashboard() {
         {activeTab === 'menu-items' && (
           <MenuItemsModule showToast={showToast} />
         )}
+
+        {activeTab === 'staff' && <StaffModule />}
+        {activeTab === 'inventory' && <InventoryModule />}
+        {activeTab === 'analytics' && <AnalyticsModule />}
+        {activeTab === 'settings' && <SettingsModule />}
+
         {/* Manual / Edit Booking Overlay Modal (Reservations) */}
         {isModalOpen && (
           <div className="fixed inset-0 z-[995] flex items-center justify-center p-4">
