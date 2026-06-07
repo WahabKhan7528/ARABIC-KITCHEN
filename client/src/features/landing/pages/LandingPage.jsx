@@ -5,16 +5,18 @@
  * menu, about, signatures, gallery, reservations, testimonials, and contact.
  */
 
+import React, { Suspense } from 'react';
 import Hero from '../components/Hero';
-import Marquee from '../components/Marquee';
-import Menu from '../components/Menu';
-import About from '../components/About';
-import SignatureDishes from '../components/SignatureDishes';
-import Gallery from '../components/Gallery';
-import Reservation from '../components/Reservation';
-import Testimonials from '../components/Testimonials';
-import Contact from '../components/Contact';
 import LocalBusinessSchema from '../../../shared/ui/LocalBusinessSchema';
+
+const Marquee = React.lazy(() => import('../components/Marquee'));
+const Menu = React.lazy(() => import('../components/Menu'));
+const About = React.lazy(() => import('../components/About'));
+const SignatureDishes = React.lazy(() => import('../components/SignatureDishes'));
+const Gallery = React.lazy(() => import('../components/Gallery'));
+const Reservation = React.lazy(() => import('../components/Reservation'));
+const Testimonials = React.lazy(() => import('../components/Testimonials'));
+const Contact = React.lazy(() => import('../components/Contact'));
 
 export default function LandingPage() {
   return (
@@ -22,14 +24,16 @@ export default function LandingPage() {
       <LocalBusinessSchema />
       <main>
         <Hero />
-      <Marquee />
-      <Menu />
-      <About />
-      <SignatureDishes />
-      <Gallery />
-      <Reservation />
-      <Testimonials />
-      <Contact />
+        <Suspense fallback={<div className="h-24 bg-[#1A0A00]"></div>}>
+          <Marquee />
+          <Menu />
+          <About />
+          <SignatureDishes />
+          <Gallery />
+          <Reservation />
+          <Testimonials />
+          <Contact />
+        </Suspense>
       </main>
     </>
   );

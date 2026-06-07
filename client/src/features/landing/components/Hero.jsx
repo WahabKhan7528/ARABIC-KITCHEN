@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { gsap } from 'gsap';
-import HeroParticles from '../../../shared/ui/HeroParticles';
 import { KhatamPattern } from '../../../shared/ui/ArabicPattern';
+
+const HeroParticles = React.lazy(() => import('../../../shared/ui/HeroParticles'));
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -73,8 +74,10 @@ export default function Hero() {
       {/* 1. Opulent Arabic Khatam Background Tiling */}
       <KhatamPattern opacity={0.06} />
 
-      {/* 2. Interactive Three.js Ambient Particle Field */}
-      <HeroParticles />
+      {/* 2. Interactive Three.js Ambient Particle Field (Lazy Loaded) */}
+      <Suspense fallback={null}>
+        <HeroParticles />
+      </Suspense>
 
       {/* Main Section Content Wrapper */}
       <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 max-w-7xl mx-auto w-full relative z-10 py-16 pb-32">
@@ -132,7 +135,13 @@ export default function Hero() {
                 className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shrink-0 group ${activeCard === index ? 'w-[55vw] sm:w-[60vw] md:w-72 lg:w-96' : 'w-[12vw] sm:w-[15vw] md:w-24 lg:w-32'
                   }`}
               >
-                <img alt={card.title} className="absolute inset-0 w-full h-full object-cover" src={card.src} />
+                <img 
+                  alt={card.title} 
+                  className="absolute inset-0 w-full h-full object-cover" 
+                  src={card.src} 
+                  loading="eager"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
                 <div className={`absolute inset-0 bg-gradient-to-t from-[#1A0A00]/90 via-[#1A0A00]/40 to-transparent transition-opacity duration-300 flex items-end pb-6 pr-6 pt-6 ${index === 0 ? 'pl-10 md:pl-12' : 'pl-6'} ${activeCard === index ? 'opacity-100' : 'opacity-0'}`}>
                   <div className="flex flex-col gap-1">
                     <span className="text-gold font-body text-label-xs whitespace-nowrap tracking-widest block">{card.label}</span>
