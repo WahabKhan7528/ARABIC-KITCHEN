@@ -5,6 +5,6 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "https://arabic-kitchen-2.onrender.com/sitemap.xml" },
     { "source": "/robots.txt", "destination": "https://arabic-kitchen-2.onrender.com/robots.txt" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
