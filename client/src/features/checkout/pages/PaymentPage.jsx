@@ -111,7 +111,15 @@ export default function PaymentPage() {
     const deliveryFee = checkoutInfo.type === 'delivery' ? 200 : 0;
     const total = subtotal + tax + deliveryFee;
 
-    const paymentStatus = paymentMethod === 'cash' ? 'pending' : 'paid';
+    let mappedPaymentStatus = 'Pending';
+    let mappedPaymentMethod = 'Cash on Delivery';
+    
+    if (paymentMethod === 'card' || paymentMethod === 'wallet') {
+      mappedPaymentStatus = 'Paid';
+      mappedPaymentMethod = 'Online Payment';
+    } else if (paymentMethod === 'cash' && (checkoutInfo.type === 'takeaway' || checkoutInfo.type === 'dine-in')) {
+      mappedPaymentMethod = 'Card at Venue'; // Assuming this maps to paying at the counter/table
+    }
 
     const newOrder = {
       name: checkoutInfo.name,
@@ -121,8 +129,8 @@ export default function PaymentPage() {
       address: checkoutInfo.address,
       requests: checkoutInfo.requests,
       items: cart,
-      paymentMethod,
-      paymentStatus,
+      paymentMethod: mappedPaymentMethod,
+      paymentStatus: mappedPaymentStatus,
       subtotal,
       deliveryFee,
       total
