@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, User, Phone } from 'lucide-react';
+import { X, Mail, Lock, User, Phone, Eye, EyeOff } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, registerCustomer, clearAuthError } from '../../../store/slices/authSlice';
 import { KhatamPattern } from '../../../shared/ui/ArabicPattern';
@@ -12,6 +12,7 @@ export default function CustomerAuthModal({ isOpen, onClose }) {
     phone: '',
     password: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector((state) => state.auth);
@@ -114,15 +115,24 @@ export default function CustomerAuthModal({ isOpen, onClose }) {
               <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                 <Lock className="w-3 h-3 text-gold" /> Password
               </label>
-              <input
-                type="password"
-                name="password"
-                required
-                minLength={6}
-                value={formData.password}
-                onChange={handleInputChange}
-                className="w-full bg-[#2A1205]/60 border border-gold/20 rounded px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  required
+                  minLength={6}
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  className="w-full bg-[#2A1205]/60 border border-gold/20 rounded pl-4 pr-12 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-cream/40 hover:text-gold transition-colors focus:outline-none cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <button

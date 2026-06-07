@@ -80,15 +80,15 @@ export default function Hero() {
       <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 max-w-7xl mx-auto w-full relative z-10 py-16 pb-32">
 
         {/* Left Side: Text Content Block */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-20">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
+          <div className="flex items-center justify-center lg:justify-start gap-4 mb-4 w-full">
             <h2 className="font-arabic text-gold text-2xl tracking-[0.2em]">مأدبة ملكية</h2>
-            <div className="h-px w-16 bg-gold/50"></div>
+            <div className="h-px w-16 bg-gold/50 hidden lg:block"></div>
           </div>
 
           <h1
             ref={headlineRef}
-            className="font-display italic text-hero text-ivory leading-[1.1] flex flex-wrap justify-start overflow-hidden mb-6"
+            className="font-display italic text-hero text-ivory leading-[1.1] flex flex-wrap justify-center lg:justify-start overflow-hidden mb-6"
           >
             {headlineString.split("").map((char, index) => (
               <span
@@ -101,11 +101,11 @@ export default function Hero() {
             ))}
           </h1>
 
-          <div ref={subtitleRef} className="flex flex-col items-start opacity-0 transform-gpu">
-            <p className="font-body text-body-md text-cream/80 max-w-lg leading-relaxed text-left">
+          <div ref={subtitleRef} className="flex flex-col items-center lg:items-start opacity-0 transform-gpu w-full">
+            <p className="font-body text-body-md text-cream/80 max-w-lg leading-relaxed text-center lg:text-left px-4 lg:px-0">
               Step into an opulent culinary sanctuary. We draw inspiration from centuries-old spice routes to bring you masterfully prepared mutton mandi, sizzling grills, and elite contemporary fast food.
             </p>
-            <div className="flex flex-wrap items-center gap-4 pt-8">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-8">
               <a href="#menu" className="bg-[#C9952A] text-[#1A0A00] font-body text-label-sm font-bold px-8 py-3.5 rounded-full uppercase tracking-widest hover:bg-[#E8BA5A] transition-colors">
                 EXPLORE MENU
               </a>
@@ -141,6 +141,17 @@ export default function Hero() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Motto Line */}
+          <div className="w-full flex justify-end mt-4 md:mt-6 pr-2 md:pr-0 -mr-6 md:-mr-12 lg:-mr-16">
+            <div className="flex items-center gap-3 lg:gap-4 opacity-90">
+              <div className="h-[1px] w-8 md:w-16 lg:w-24 bg-gradient-to-r from-transparent to-[#C9952A]/60"></div>
+              <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8BA5A] via-[#C9952A] to-[#E8BA5A] text-xs md:text-sm lg:text-base tracking-[0.2em] md:tracking-[0.3em] font-display italic uppercase font-bold drop-shadow-md text-center md:text-right">
+                Taste the essence of Arabian royalty <span className="mx-1 md:mx-2 text-[#C9952A]/50">✦</span> Authentic flavors, timeless tradition
+              </p>
+              <div className="h-[1px] w-8 md:w-16 lg:w-24 bg-gradient-to-l from-transparent to-[#C9952A]/60"></div>
+            </div>
           </div>
 
         </div>

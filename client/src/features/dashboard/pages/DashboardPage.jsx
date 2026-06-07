@@ -240,7 +240,7 @@ export default function DashboardPage() {
       {activeTab === 'reservations' && (
         <div className="animate-fade-in space-y-6">
           <div className="border-b border-gold/10 pb-4 text-left">
-            <h2 className="text-title-sm font-display text-gold-light">Table Reservations</h2>
+            <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Table Reservations</h2>
             <p className="text-body-sm text-cream/60 mt-1">
               Monitor and manage table reservations, seat active walk-in guests, update guest statuses, and assign tables in real-time.
             </p>
@@ -271,7 +271,7 @@ export default function DashboardPage() {
       {activeTab === 'orders' && (
         <div className="animate-fade-in space-y-6">
           <div className="border-b border-gold/10 pb-4 text-left">
-            <h2 className="text-title-sm font-display text-gold-light">Orders Management</h2>
+            <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Orders Management</h2>
             <p className="text-body-sm text-cream/60 mt-1">
               Track and process customer orders, update kitchen preparation stages, dispatch delivery or takeaway packages, and manage billing.
             </p>

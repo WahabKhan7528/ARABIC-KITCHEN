@@ -112,7 +112,7 @@ export default function MenuItemsModule({ showToast, requestConfirm }) {
     <div className="animate-fade-in space-y-6">
       {/* Header / Intro */}
       <div className="border-b border-gold/10 pb-4 text-left">
-        <h2 className="text-title-sm font-display text-gold-light">Menu Items</h2>
+        <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Menu Items</h2>
         <p className="text-body-sm text-cream/60 mt-1">
           Browse, add, edit, or delete items from the restaurant's active menu, including prices, categories, descriptions, and images.
         </p>

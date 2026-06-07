@@ -168,12 +168,12 @@ export default function MenuCard({ image, category, name, nameArabic, arabicName
 
           <div 
             onClick={handleAdd}
-            className="relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0 cursor-pointer active:scale-95 transition-transform"
+            className={`relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0 cursor-pointer active:scale-95 transition-all duration-300 ${isAdded ? 'scale-105' : ''}`}
           >
-            <span className="text-label-sm uppercase font-bold tracking-[0.15em] text-[#C9952A] group-hover:-translate-y-8 transition-transform duration-300 font-body block text-right w-full pr-1">
+            <span className={`text-label-sm uppercase font-bold tracking-[0.15em] text-[#C9952A] transition-transform duration-300 font-body block text-right w-full pr-1 ${isAdded ? '-translate-y-8' : 'group-hover:-translate-y-8'}`}>
               ADD TO CART
             </span>
-            <span className={`absolute right-0 translate-y-8 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] w-full h-full rounded-[2px] font-body ${isAdded ? 'bg-emerald-700 text-ivory border border-emerald-500' : 'bg-[#C9952A] text-[#1A0A00]'}`}>
+            <span className={`absolute right-0 transition-all duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] w-full h-full rounded-[2px] font-body ${isAdded ? 'translate-y-0 bg-emerald-700 text-ivory border border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'translate-y-8 group-hover:translate-y-0 bg-[#C9952A] text-[#1A0A00]'}`}>
               {isAdded ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-ivory" />

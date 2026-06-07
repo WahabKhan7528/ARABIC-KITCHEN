@@ -110,7 +110,7 @@ export default function StaffModule({ showToast, requestConfirm }) {
       {/* Header / Intro */}
       <div className="border-b border-gold/10 pb-4 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h2 className="text-title-sm font-display text-gold-light">Staff Management</h2>
+          <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Staff Management</h2>
           <p className="text-body-sm text-cream/60 mt-1">
             Manage restaurant staff members, check roles, and update current access statuses.
           </p>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, clearAuthError } from '../../../store/slices/authSlice';
-import { Lock, User } from 'lucide-react';
+import { Lock, User, Eye, EyeOff } from 'lucide-react';
 import { KhatamPattern } from '../../../shared/ui/ArabicPattern';
 
 export default function Login() {
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.auth);
@@ -60,13 +61,20 @@ export default function Login() {
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cream/40" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded pl-10 pr-4 py-3 text-cream placeholder:text-cream/30 focus:outline-none focus:border-gold transition-colors font-mono"
+              className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded pl-10 pr-12 py-3 text-cream placeholder:text-cream/30 focus:outline-none focus:border-gold transition-colors font-mono"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-cream/40 hover:text-gold transition-colors focus:outline-none cursor-pointer"
+            >
+              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            </button>
           </div>
 
           <button
