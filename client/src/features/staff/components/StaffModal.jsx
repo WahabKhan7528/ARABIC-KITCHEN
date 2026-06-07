@@ -40,7 +40,7 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
             {modalErrors.name && <p className="text-accent-red text-xs mt-1">{modalErrors.name}</p>}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-label-xs uppercase tracking-widest text-cream/70">Employee ID</label>
               <input 
@@ -68,7 +68,7 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-label-xs uppercase tracking-widest text-cream/70">Role</label>
               <select

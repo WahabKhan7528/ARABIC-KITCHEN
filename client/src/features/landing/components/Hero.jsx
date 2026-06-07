@@ -120,7 +120,7 @@ export default function Hero() {
         <div className="w-full lg:w-1/2 flex flex-col items-end gap-8 relative z-30 mt-12 lg:mt-0">
 
           {/* Right Slider Cards */}
-          <div ref={imageContainerRef} className="flex h-64 md:h-80 lg:h-96 xl:h-[420px] gap-3 transform-gpu justify-end w-[calc(100%+1.5rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] -mr-6 md:-mr-12 lg:-mr-16">
+          <div ref={imageContainerRef} className="flex h-64 md:h-80 lg:h-96 xl:h-[420px] gap-2 md:gap-3 transform-gpu justify-end w-full md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] md:-mr-12 lg:-mr-16">
             {[
               { title: 'Mutton Ribs', label: 'SIGNATURE', src: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
               { title: 'Spicy Penne', label: 'POPULAR', src: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&q=80' },
@@ -129,7 +129,7 @@ export default function Hero() {
               <div
                 key={index}
                 onMouseEnter={() => setActiveCard(index)}
-                className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shrink-0 group ${activeCard === index ? 'w-72 lg:w-96' : 'w-24 lg:w-32'
+                className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shrink-0 group ${activeCard === index ? 'w-[55vw] sm:w-[60vw] md:w-72 lg:w-96' : 'w-[12vw] sm:w-[15vw] md:w-24 lg:w-32'
                   }`}
               >
                 <img alt={card.title} className="absolute inset-0 w-full h-full object-cover" src={card.src} />

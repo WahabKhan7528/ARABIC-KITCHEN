@@ -108,7 +108,7 @@ export default function StaffModule({ showToast, requestConfirm }) {
   return (
     <div className="animate-fade-in space-y-6">
       {/* Header / Intro */}
-      <div className="border-b border-gold/10 pb-4 text-left flex justify-between items-end">
+      <div className="border-b border-gold/10 pb-4 text-left flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
           <h2 className="text-title-sm font-display text-gold-light">Staff Management</h2>
           <p className="text-body-sm text-cream/60 mt-1">
@@ -117,7 +117,7 @@ export default function StaffModule({ showToast, requestConfirm }) {
         </div>
         <button
           onClick={() => openModal(null)}
-          className="px-5 py-2 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-bold text-label-xs uppercase tracking-widest rounded-[2px] transition-colors flex items-center gap-2 shadow-md"
+          className="w-full md:w-auto px-5 py-2.5 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-bold text-label-xs uppercase tracking-widest rounded-[2px] transition-colors flex items-center justify-center gap-2 shadow-md"
         >
           <Plus className="w-4 h-4" /> Add New Staff
         </button>

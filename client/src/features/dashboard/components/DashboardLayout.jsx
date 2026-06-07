@@ -138,7 +138,7 @@ export default function DashboardLayout({ activeModule, setActiveModule, childre
       {/* Main Content Area */}
       <main className="flex-1 relative z-10 flex flex-col md:h-screen overflow-hidden">
         {/* We use md:h-screen and overflow-y-auto so the content scrolls but sidebar is fixed */}
-        <div className="flex-1 overflow-y-auto scrollbar-none p-6 md:p-10">
+        <div className="flex-1 overflow-y-auto scrollbar-none p-4 sm:p-6 md:p-10">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

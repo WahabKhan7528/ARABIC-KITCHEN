@@ -5,7 +5,7 @@ export default function ToastNotification({ toast, onClose }) {
   if (!toast) return null;
 
   return (
-    <div className="fixed top-6 right-6 z-[999] max-w-sm w-full bg-[#1F1108]/95 border-2 border-gold/60 p-4 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[2px] animate-scale-up flex gap-3.5 items-start text-left">
+    <div className="fixed top-20 md:top-6 right-4 md:right-6 z-[999] max-w-[calc(100vw-2rem)] md:max-w-sm w-full bg-[#1F1108]/95 border-2 border-gold/60 p-4 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[2px] animate-scale-up flex gap-3.5 items-start text-left">
       <div className="bg-gold/10 p-2 rounded-full border border-gold/30 text-gold mt-0.5 shrink-0">
         <CheckCircle className="w-5 h-5 animate-pulse" />
       </div>
