@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const prerender = require('prerender-node');
 
 const cookieParser = require('cookie-parser');
 
@@ -9,10 +10,13 @@ const registrationRoutes = require('./routes/registration.routes');
 const reservationRoutes = require('./routes/reservation.routes');
 const staffRoutes = require('./routes/staff.routes');
 const orderRoutes = require('./routes/order.routes');
+const seoRoutes = require('./routes/seo.routes');
 
 const app = express();
 
 // --------------- MIDDLEWARE ---------------
+
+app.use(prerender.set('prerenderToken', process.env.PRERENDER_TOKEN || ''));
 
 const allowedOrigins = [
   process.env.FRONTEND_URL,
@@ -54,6 +58,9 @@ app.use('/api/registrations', registrationRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/orders', orderRoutes);
+
+// Base route for SEO (robots.txt, sitemap.xml)
+app.use('/', seoRoutes);
 
 // --------------- 404 HANDLER ---------------
 

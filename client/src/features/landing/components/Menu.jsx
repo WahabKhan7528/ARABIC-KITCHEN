@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import MenuCard from '../../menu/components/MenuCard';
 import { KhatamPattern, MuqarnasArch } from '../../../shared/ui/ArabicPattern';
+import RestaurantMenuSchema from '../../../shared/ui/RestaurantMenuSchema';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -244,6 +245,9 @@ export default function Menu() {
           ))}
         </div>
       </div>
+      
+      {/* Dynamic SEO JSON-LD Schema */}
+      <RestaurantMenuSchema menuItems={filteredItems} />
     </section>
   );
 }

@@ -14,11 +14,14 @@ import Gallery from '../components/Gallery';
 import Reservation from '../components/Reservation';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
+import LocalBusinessSchema from '../../../shared/ui/LocalBusinessSchema';
 
 export default function LandingPage() {
   return (
-    <main>
-      <Hero />
+    <>
+      <LocalBusinessSchema />
+      <main>
+        <Hero />
       <Marquee />
       <Menu />
       <About />
@@ -27,6 +30,7 @@ export default function LandingPage() {
       <Reservation />
       <Testimonials />
       <Contact />
-    </main>
+      </main>
+    </>
   );
 }

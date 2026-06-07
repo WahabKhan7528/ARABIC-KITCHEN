@@ -36,6 +36,23 @@ const menuItemSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    // SEO Specific Fields
+    slug: { 
+      type: String, 
+      unique: true, 
+      sparse: true,
+      trim: true 
+    },
+    seoTitle: { 
+      type: String, 
+      maxlength: 60,
+      trim: true 
+    },
+    seoDescription: { 
+      type: String, 
+      maxlength: 160,
+      trim: true 
+    },
   },
   { timestamps: true }
 );

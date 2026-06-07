@@ -19,6 +19,7 @@ import Navbar from '../shared/layout/Navbar';
 import Footer from '../shared/layout/Footer';
 import CustomCursor from '../shared/ui/CustomCursor';
 import GrainOverlay from '../shared/ui/GrainOverlay';
+import SEO from '../shared/ui/SEO';
 
 // Feature pages
 import { LandingPage } from '../features/landing';
@@ -76,6 +77,9 @@ export default function App() {
     <div className="relative min-h-screen bg-[#1A0A00] overflow-x-hidden text-ivory">
       {/* GPU-optimized film-grain texture canvas overlay */}
       <GrainOverlay />
+      
+      {/* Default SEO Tags */}
+      <SEO title={currentView === 'guest' ? 'Home' : currentView.charAt(0).toUpperCase() + currentView.slice(1)} />
 
       {/* Lagging custom trailing cursor (desktop cursor devices only) */}
       <CustomCursor />
