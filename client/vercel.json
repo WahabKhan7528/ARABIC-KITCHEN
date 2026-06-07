@@ -2,5 +2,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "https://arabic-kitchen-2.onrender.com/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "https://arabic-kitchen-2.onrender.com/robots.txt" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
