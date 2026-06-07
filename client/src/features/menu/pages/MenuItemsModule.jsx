@@ -280,7 +280,7 @@ export default function MenuItemsModule({ showToast, requestConfirm }) {
                       onChange={(e) => setModalData(prev => ({...prev, category: e.target.value}))}
                       className="w-full bg-[#1A0A00] border border-gold/20 rounded-[2px] px-3 py-2 text-body-sm text-ivory focus:border-gold focus:outline-none"
                     >
-                      {categories.map(cat => <option key={cat} value={cat}>{CATEGORY_MAP[cat]}</option>)}
+                      {categories.map(cat => <option key={cat} value={cat}>{MENU_CATEGORIES[cat]}</option>)}
                     </select>
                   </div>
                 </div>
