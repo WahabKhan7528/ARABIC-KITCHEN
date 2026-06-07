@@ -12,13 +12,16 @@
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/plus-jakarta-sans": "^5.2.8",
+    "@reduxjs/toolkit": "^2.12.0",
     "@studio-freight/lenis": "^1.0.42",
+    "axios": "^1.17.0",
     "canvas-confetti": "^1.9.4",
     "gsap": "^3.15.0",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.76.1",
+    "react-redux": "^9.3.0",
     "swiper": "^12.1.4",
     "three": "^0.184.0",
     "zod": "^4.4.3"
