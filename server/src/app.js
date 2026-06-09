@@ -3,6 +3,9 @@ const cors = require('cors');
 const prerender = require('prerender-node');
 
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const morgan = require('morgan');
 
 const authRoutes = require('./routes/auth.routes');
 const itemRoutes = require('./routes/item.routes');
@@ -46,6 +49,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Security Headers
+app.use(helmet());
+
+// Prevent NoSQL Injection
+app.use(mongoSanitize());
+
+// Request logging
+app.use(morgan('dev'));
+
 // --------------- ROUTES ---------------
 
 app.get('/api/health', (_req, res) => {
@@ -57,6 +69,7 @@ app.use('/api/items', itemRoutes);
 app.use('/api/registrations', registrationRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/staff', staffRoutes);
+app.use('/api/users', staffRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Base route for SEO (robots.txt, sitemap.xml)

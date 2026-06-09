@@ -196,9 +196,17 @@ const staff = {
   /** POST /api/staff */
   create: [
     body('employeeId')
+      .if((value, { req }) => req.body.role !== 'customer')
       .trim()
       .notEmpty()
       .withMessage('Employee ID is required.'),
+    body('email')
+      .if((value, { req }) => req.body.role === 'customer')
+      .trim()
+      .notEmpty()
+      .withMessage('Email is required for clients.')
+      .isEmail()
+      .withMessage('Please provide a valid email address.'),
     body('name')
       .trim()
       .notEmpty()
@@ -211,11 +219,25 @@ const staff = {
     body('role')
       .optional()
       .isIn(USER_ROLES)
-      .withMessage(`Role must be ${USER_ROLES.join(' or ')}.`),
+      .withMessage(`Role must be one of: ${USER_ROLES.join(', ')}.`),
   ],
 
   /** PUT /api/staff/:id */
   update: [
+    body('employeeId')
+      .optional()
+      .if((value, { req }) => req.body.role !== 'customer')
+      .trim()
+      .notEmpty()
+      .withMessage('Employee ID cannot be empty.'),
+    body('email')
+      .optional()
+      .if((value, { req }) => req.body.role === 'customer')
+      .trim()
+      .notEmpty()
+      .withMessage('Email cannot be empty.')
+      .isEmail()
+      .withMessage('Please provide a valid email address.'),
     body('name')
       .optional()
       .trim()
@@ -228,7 +250,7 @@ const staff = {
     body('role')
       .optional()
       .isIn(USER_ROLES)
-      .withMessage(`Role must be ${USER_ROLES.join(' or ')}.`),
+      .withMessage(`Role must be one of: ${USER_ROLES.join(', ')}.`),
     body('isActive')
       .optional()
       .isBoolean()

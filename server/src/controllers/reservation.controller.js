@@ -264,3 +264,30 @@ exports.getStatus = asyncHandler(async (req, res) => {
   }
   res.json({ status: reservation.status, tableNumber: reservation.tableNumber });
 });
+
+/**
+ * Cancel a reservation (Customer)
+ *
+ * @route   PATCH /api/reservations/:id/cancel
+ * @access  Private (Customer)
+ */
+exports.cancelReservation = asyncHandler(async (req, res) => {
+  const reservation = await Reservation.findById(req.params.id);
+  if (!reservation) {
+    return res.status(404).json({ message: 'Reservation not found.' });
+  }
+
+  // Ensure it belongs to the customer
+  if (reservation.customerId?.toString() !== req.user.id) {
+    return res.status(403).json({ message: 'Not authorized to cancel this reservation.' });
+  }
+
+  if (reservation.status !== 'pending' && reservation.status !== 'confirmed') {
+    return res.status(400).json({ message: 'Only pending or confirmed reservations can be cancelled.' });
+  }
+
+  reservation.status = 'cancelled';
+  await reservation.save();
+
+  res.json({ message: 'Reservation cancelled successfully.', reservation });
+});

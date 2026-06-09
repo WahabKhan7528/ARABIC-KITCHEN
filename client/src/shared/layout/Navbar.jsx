@@ -211,18 +211,20 @@ export default function Navbar() {
             Book Table
           </a>
 
-          <a
-            href="#dashboard"
-            onClick={() => setIsOpen(false)}
-            className="mt-2 text-gold/60 hover:text-gold text-label-sm uppercase font-semibold tracking-widest font-body"
-            style={{
-              transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
-              opacity: isOpen ? 1 : 0,
-              transition: 'all 0.5s ease-out 0.35s',
-            }}
-          >
-            Staff Dashboard &rarr;
-          </a>
+          {(!isAuthenticated || user?.role === 'admin' || user?.role === 'staff') && (
+            <a
+              href="#dashboard"
+              onClick={() => setIsOpen(false)}
+              className="mt-2 text-gold/60 hover:text-gold text-label-sm uppercase font-semibold tracking-widest font-body"
+              style={{
+                transform: isOpen ? 'translateY(0)' : 'translateY(20px)',
+                opacity: isOpen ? 1 : 0,
+                transition: 'all 0.5s ease-out 0.35s',
+              }}
+            >
+              Staff Dashboard &rarr;
+            </a>
+          )}
         </div>
       </div>
 

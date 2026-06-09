@@ -32,6 +32,28 @@ export default function CustomerDashboard() {
     fetchData();
   }, []);
 
+  const [expandedOrder, setExpandedOrder] = useState(null);
+
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm('Are you sure you want to cancel this order?')) return;
+    try {
+      await api.patch(`/orders/${orderId}/cancel`);
+      setOrders(orders.map(o => o._id === orderId ? { ...o, status: 'cancelled' } : o));
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to cancel order.');
+    }
+  };
+
+  const handleCancelReservation = async (resId) => {
+    if (!window.confirm('Are you sure you want to cancel this reservation?')) return;
+    try {
+      await api.patch(`/reservations/${resId}/cancel`);
+      setReservations(reservations.map(r => r._id === resId ? { ...r, status: 'cancelled' } : r));
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to cancel reservation.');
+    }
+  };
+
   const handleLogout = async () => {
     await dispatch(logoutUser());
     window.location.hash = '#home';
@@ -125,13 +147,42 @@ export default function CustomerDashboard() {
                             Rs. {order.total.toLocaleString()}
                           </div>
                         </div>
-                        <button 
-                          onClick={() => window.location.hash = `#confirmation?id=${order._id}`}
-                          className="px-4 py-2 bg-gold/10 text-gold hover:bg-gold/20 rounded-full text-xs uppercase tracking-widest font-bold transition-colors border border-gold/30"
-                        >
-                          Tracker
-                        </button>
+                        <div className="flex flex-col gap-2">
+                          <button 
+                            onClick={() => window.location.hash = `#confirmation?id=${order._id}`}
+                            className="px-4 py-1.5 bg-gold/10 text-gold hover:bg-gold/20 rounded-full text-xs uppercase tracking-widest font-bold transition-colors border border-gold/30"
+                          >
+                            Tracker
+                          </button>
+                          <button 
+                            onClick={() => setExpandedOrder(expandedOrder === order._id ? null : order._id)}
+                            className="px-4 py-1.5 bg-transparent text-cream/70 hover:text-gold rounded-full text-xs uppercase tracking-widest transition-colors border border-gold/10"
+                          >
+                            {expandedOrder === order._id ? 'Hide Items' : 'View Items'}
+                          </button>
+                          {order.status === 'pending' && (
+                            <button 
+                              onClick={() => handleCancelOrder(order._id)}
+                              className="px-4 py-1.5 bg-accent-red/10 text-accent-red hover:bg-accent-red/20 rounded-full text-xs uppercase tracking-widest font-bold transition-colors border border-accent-red/30"
+                            >
+                              Cancel
+                            </button>
+                          )}
+                        </div>
                       </div>
+                      
+                      {expandedOrder === order._id && (
+                        <div className="w-full mt-4 pt-4 border-t border-gold/10 font-body text-sm text-cream/80">
+                          <ul className="space-y-2">
+                            {order.items.map((item, idx) => (
+                              <li key={idx} className="flex justify-between">
+                                <span>{item.quantity}x {item.name}</span>
+                                <span>Rs. {(item.price * item.quantity).toLocaleString()}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   ))
                 )}
@@ -156,14 +207,24 @@ export default function CustomerDashboard() {
                           Party of {res.partySize} • {res.occasion !== 'none' ? res.occasion : 'Standard Dining'}
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className={`font-bold uppercase tracking-widest text-sm ${getStatusColor(res.status)}`}>
-                          {res.status}
-                        </div>
-                        {res.tableNumber && (
-                          <div className="text-gold/80 mt-1 font-body text-sm">
-                            Table {res.tableNumber}
+                      <div className="flex items-center gap-6">
+                        <div className="text-right">
+                          <div className={`font-bold uppercase tracking-widest text-sm ${getStatusColor(res.status)}`}>
+                            {res.status}
                           </div>
+                          {res.tableNumber && (
+                            <div className="text-gold/80 mt-1 font-body text-sm">
+                              Table {res.tableNumber}
+                            </div>
+                          )}
+                        </div>
+                        {(res.status === 'pending' || res.status === 'confirmed') && (
+                          <button 
+                            onClick={() => handleCancelReservation(res._id)}
+                            className="px-4 py-2 bg-accent-red/10 text-accent-red hover:bg-accent-red/20 rounded-full text-xs uppercase tracking-widest font-bold transition-colors border border-accent-red/30"
+                          >
+                            Cancel
+                          </button>
                         )}
                       </div>
                     </div>

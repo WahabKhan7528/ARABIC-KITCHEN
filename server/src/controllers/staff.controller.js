@@ -66,16 +66,27 @@ exports.create = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Validation failed', errors: errors.array() });
   }
 
-  const { employeeId, name, role, password, phone } = req.body;
+  const { employeeId, email, name, role, password, phone } = req.body;
 
   // Prevent duplicate employee IDs
-  const existing = await User.findOne({ employeeId });
-  if (existing) {
-    return res.status(409).json({ message: `Employee ID '${employeeId}' is already taken.` });
+  if (employeeId && role !== 'customer') {
+    const existing = await User.findOne({ employeeId });
+    if (existing) {
+      return res.status(409).json({ message: `Employee ID '${employeeId}' is already taken.` });
+    }
+  }
+
+  // Prevent duplicate emails
+  if (email && role === 'customer') {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(409).json({ message: `Email '${email}' is already taken.` });
+    }
   }
 
   const user = await User.create({
-    employeeId,
+    employeeId: role === 'customer' ? undefined : employeeId,
+    email: role === 'customer' ? email : undefined,
     name,
     role: role || 'staff',
     password,
@@ -87,7 +98,7 @@ exports.create = asyncHandler(async (req, res) => {
   const userResponse = user.toObject();
   delete userResponse.password;
 
-  res.status(201).json({ message: 'Staff account created successfully.', staff: userResponse });
+  res.status(201).json({ message: 'User account created successfully.', staff: userResponse });
 });
 
 /**
@@ -115,15 +126,47 @@ exports.update = asyncHandler(async (req, res) => {
   // Include password field so the pre-save hook can detect modifications
   const member = await User.findById(req.params.id).select('+password');
   if (!member) {
-    return res.status(404).json({ message: 'Staff member not found.' });
+    return res.status(404).json({ message: 'User not found.' });
   }
 
-  const { name, phone, role, isActive, password } = req.body;
+  const { name, phone, role, isActive, password, email, employeeId } = req.body;
+  const targetRole = role !== undefined ? role : member.role;
+
+  // Prevent duplicate employee IDs
+  if (employeeId && targetRole !== 'customer') {
+    const existing = await User.findOne({ employeeId, _id: { $ne: req.params.id } });
+    if (existing) {
+      return res.status(409).json({ message: `Employee ID '${employeeId}' is already taken.` });
+    }
+  }
+
+  // Prevent duplicate emails
+  if (email && targetRole === 'customer') {
+    const existingEmail = await User.findOne({ email, _id: { $ne: req.params.id } });
+    if (existingEmail) {
+      return res.status(409).json({ message: `Email '${email}' is already taken.` });
+    }
+  }
+
   if (name !== undefined) member.name = name;
   if (phone !== undefined) member.phone = phone;
-  if (role !== undefined) member.role = role;
   if (isActive !== undefined) member.isActive = isActive;
   if (password) member.password = password; // Will be hashed by pre-save hook
+
+  if (role !== undefined) {
+    member.role = role;
+    if (role === 'customer') {
+      member.employeeId = undefined;
+    } else {
+      member.email = undefined;
+    }
+  }
+
+  if (targetRole === 'customer') {
+    if (email !== undefined) member.email = email;
+  } else {
+    if (employeeId !== undefined) member.employeeId = employeeId;
+  }
 
   await member.save();
 
@@ -131,7 +174,7 @@ exports.update = asyncHandler(async (req, res) => {
   const memberResponse = member.toObject();
   delete memberResponse.password;
 
-  res.json({ message: 'Staff member updated successfully.', staff: memberResponse });
+  res.json({ message: 'User updated successfully.', staff: memberResponse });
 });
 
 /**

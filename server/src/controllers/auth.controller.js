@@ -93,10 +93,27 @@ exports.login = asyncHandler(async (req, res) => {
     return res.status(403).json({ message: 'Account is deactivated. Contact your administrator.' });
   }
 
+  // Check if locked out
+  if (user.isLocked) {
+    return res.status(403).json({ message: `Account is temporarily locked. Please try again later.` });
+  }
+
   // Compare the candidate password against the bcrypt hash
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
-    return res.status(401).json({ message: 'Invalid employee ID or password.' });
+    user.failedLoginAttempts += 1;
+    if (user.failedLoginAttempts >= 5) {
+      user.lockUntil = new Date(Date.now() + 15 * 60 * 1000); // lock for 15 mins
+    }
+    await user.save();
+    return res.status(401).json({ message: 'Invalid credentials.' });
+  }
+
+  // Reset failed attempts on success
+  if (user.failedLoginAttempts > 0 || user.lockUntil) {
+    user.failedLoginAttempts = 0;
+    user.lockUntil = undefined;
+    await user.save();
   }
 
   // Issue a signed JWT containing the user's ID and role
@@ -166,4 +183,33 @@ exports.getMe = asyncHandler(async (req, res) => {
       role: user.role,
     }
   });
+});
+
+/**
+ * Change the user's password
+ *
+ * @route   PUT /api/auth/change-password
+ * @access  Private
+ */
+exports.changePassword = asyncHandler(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ message: 'Please provide both current and new passwords.' });
+  }
+
+  const user = await User.findById(req.user.id).select('+password');
+  if (!user) {
+    return res.status(404).json({ message: 'User not found.' });
+  }
+
+  const isMatch = await user.comparePassword(currentPassword);
+  if (!isMatch) {
+    return res.status(401).json({ message: 'Incorrect current password.' });
+  }
+
+  user.password = newPassword;
+  await user.save();
+
+  res.json({ message: 'Password updated successfully.' });
 });

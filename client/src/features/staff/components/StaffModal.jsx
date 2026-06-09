@@ -15,7 +15,7 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
         {/* Header */}
         <div className="p-6 border-b border-gold/15 flex items-center justify-between">
           <h3 className="font-display italic text-title-sm text-gold">
-            {selectedStaff ? 'Edit Staff Member' : 'Add New Staff'}
+            {selectedStaff ? 'Edit User' : 'Add New User'}
           </h3>
           <button 
             onClick={onClose}
@@ -41,19 +41,34 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="text-label-xs uppercase tracking-widest text-cream/70">Employee ID</label>
-              <input 
-                type="text" 
-                name="employeeId"
-                value={modalData.employeeId}
-                onChange={handleModalInputChange}
-                readOnly={!selectedStaff}
-                placeholder="e.g. EMP-102"
-                className={`w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2 text-body-sm text-ivory placeholder-cream/35 focus:outline-none focus:border-gold font-body ${!selectedStaff ? 'opacity-70 cursor-not-allowed' : ''}`}
-              />
-              {modalErrors.employeeId && <p className="text-accent-red text-xs mt-1">{modalErrors.employeeId}</p>}
-            </div>
+            {modalData.role === 'customer' ? (
+              <div className="space-y-1">
+                <label className="text-label-xs uppercase tracking-widest text-cream/70">Email</label>
+                <input 
+                  type="email" 
+                  name="email"
+                  value={modalData.email || ''}
+                  onChange={handleModalInputChange}
+                  placeholder="e.g. client@email.com"
+                  className="w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2 text-body-sm text-ivory placeholder-cream/35 focus:outline-none focus:border-gold font-body"
+                />
+                {modalErrors.email && <p className="text-accent-red text-xs mt-1">{modalErrors.email}</p>}
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <label className="text-label-xs uppercase tracking-widest text-cream/70">Employee ID</label>
+                <input 
+                  type="text" 
+                  name="employeeId"
+                  value={modalData.employeeId}
+                  onChange={handleModalInputChange}
+                  readOnly={!selectedStaff}
+                  placeholder="e.g. EMP-102"
+                  className={`w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2 text-body-sm text-ivory placeholder-cream/35 focus:outline-none focus:border-gold font-body ${!selectedStaff ? 'opacity-70 cursor-not-allowed' : ''}`}
+                />
+                {modalErrors.employeeId && <p className="text-accent-red text-xs mt-1">{modalErrors.employeeId}</p>}
+              </div>
+            )}
 
             <div className="space-y-1">
               <label className="text-label-xs uppercase tracking-widest text-cream/70">Phone</label>
@@ -79,6 +94,7 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
               >
                 <option value="staff">Staff</option>
                 <option value="admin">Admin</option>
+                <option value="customer">Client</option>
               </select>
             </div>
 
@@ -123,7 +139,7 @@ export default function StaffModal({ isOpen, onClose, selectedStaff, modalData, 
               type="submit"
               className="px-5 py-2 text-label-xs font-bold uppercase tracking-widest bg-gold hover:bg-gold-light text-[#1A0A00] rounded-[2px] transition-colors shadow-md"
             >
-              {selectedStaff ? 'Update Staff' : 'Create Staff'}
+              {selectedStaff ? 'Update User' : 'Create User'}
             </button>
           </div>
         </form>

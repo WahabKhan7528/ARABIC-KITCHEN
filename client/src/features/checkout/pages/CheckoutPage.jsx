@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ChevronRight, Truck, Store, Coffee, MapPin, User, Phone } from 'lucide-react';
 import { KhatamPattern, MuqarnasArch } from '../../../shared/ui/ArabicPattern';
 import { getCart, parsePrice } from '../../../utils/orderStorage';
+import { useSelector } from 'react-redux';
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
+  const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -16,11 +18,23 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    // Pre-fill name and phone from the logged-in customer's profile
+    if (user?.role === 'customer') {
+      setFormData(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        phone: prev.phone || user.phone || '',
+      }));
+    }
+  }, [user]);
+
+  useEffect(() => {
     const items = getCart();
     setCart(items);
     // Redirect if cart is empty
     if (items.length === 0) {
-      window.location.hash = '#cart';
+      alert("Your cart is empty. Please add items from the menu before checking out.");
+      window.location.hash = '#menu';
     }
 
     // Load draft if exists
@@ -159,6 +173,8 @@ export default function CheckoutPage() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="e.g. 03001234567"
+                    minLength={11}
+                    maxLength={14}
                     className="w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3.5 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold font-body"
                   />
                   {errors.phone && <span className="text-label-xs text-accent-red font-semibold mt-0.5">{errors.phone}</span>}

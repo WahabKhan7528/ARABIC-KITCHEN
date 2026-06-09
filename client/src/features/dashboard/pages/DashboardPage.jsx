@@ -23,6 +23,7 @@ import OrdersTable from '../../orders/components/OrdersTable';
 // Other Modules
 import MenuItemsModule from '../../menu/pages/MenuItemsModule';
 import StaffModule from '../../staff/pages/StaffModule';
+import AnalyticsTab from '../components/AnalyticsTab';
 
 // Utilities
 import api from '../../../utils/api';
@@ -239,11 +240,12 @@ export default function DashboardPage() {
           ---------------------------------------------------- */}
       {activeTab === 'reservations' && (
         <div className="animate-fade-in space-y-6">
-          <div className="border-b border-gold/10 pb-4 text-left">
-            <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Table Reservations</h2>
-            <p className="text-body-sm text-cream/60 mt-1">
+          <div className="border-b border-gold/10 pb-5 text-left">
+            <h2 className="text-title-md md:text-title-lg font-display bg-gradient-to-r from-gold-light via-gold to-cream bg-clip-text text-transparent font-bold drop-shadow-md tracking-wider uppercase">Table Reservations</h2>
+            <p className="text-body-sm text-cream/60 mt-1.5">
               Monitor and manage table reservations, seat active walk-in guests, update guest statuses, and assign tables in real-time.
             </p>
+            <div className="w-24 h-[3px] bg-gradient-to-r from-gold via-gold-light to-transparent mt-4 rounded-full" />
           </div>
 
           <ReservationStats stats={resFilters.stats} />
@@ -270,11 +272,12 @@ export default function DashboardPage() {
           ---------------------------------------------------- */}
       {activeTab === 'orders' && (
         <div className="animate-fade-in space-y-6">
-          <div className="border-b border-gold/10 pb-4 text-left">
-            <h2 className="text-title-md md:text-title-lg font-display text-gold-light font-bold drop-shadow-md tracking-wide">Orders Management</h2>
-            <p className="text-body-sm text-cream/60 mt-1">
+          <div className="border-b border-gold/10 pb-5 text-left">
+            <h2 className="text-title-md md:text-title-lg font-display bg-gradient-to-r from-gold-light via-gold to-cream bg-clip-text text-transparent font-bold drop-shadow-md tracking-wider uppercase">Orders Management</h2>
+            <p className="text-body-sm text-cream/60 mt-1.5">
               Track and process customer orders, update kitchen preparation stages, dispatch delivery or takeaway packages, and manage billing.
             </p>
+            <div className="w-24 h-[3px] bg-gradient-to-r from-gold via-gold-light to-transparent mt-4 rounded-full" />
           </div>
 
           <OrderStats stats={orderFilters.stats} />
@@ -300,6 +303,13 @@ export default function DashboardPage() {
           ---------------------------------------------------- */}
       {activeTab === 'staff' && user?.role === 'admin' && (
         <StaffModule showToast={showToast} requestConfirm={requestConfirm} />
+      )}
+
+      {/* ----------------------------------------------------
+          TAB 5: ANALYTICS SECTION
+          ---------------------------------------------------- */}
+      {activeTab === 'analytics' && user?.role === 'admin' && (
+        <AnalyticsTab />
       )}
 
       {/* Modal */}

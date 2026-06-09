@@ -8,7 +8,7 @@ import { addToCart } from "../../../utils/orderStorage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function MenuCard({ image, category, name, nameArabic, arabicName, price, description }) {
+export default function MenuCard({ image, category, name, nameArabic, arabicName, price, description, inStock = true }) {
   const cardRef = useRef(null);
   const shimmerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -100,6 +100,7 @@ export default function MenuCard({ image, category, name, nameArabic, arabicName
 
   const handleAdd = (e) => {
     e.stopPropagation();
+    if (!inStock) return;
     addToCart({ image, category, name, price });
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1200);
@@ -111,7 +112,7 @@ export default function MenuCard({ image, category, name, nameArabic, arabicName
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="relative w-[300px] h-[430px] md:w-[330px] md:h-[460px] lg:w-[290px] lg:h-[390px] xl:w-[310px] xl:h-[420px] bg-[#6B2E0E] border border-[#C9952A]/25 rounded-[2px] overflow-hidden flex flex-col justify-between group cursor-pointer transition-shadow duration-500 hover:shadow-[0_0_25px_rgba(201,149,42,0.25)] select-none transform-gpu shrink-0"
+      className={`relative w-[300px] h-[430px] md:w-[330px] md:h-[460px] lg:w-[290px] lg:h-[390px] xl:w-[310px] xl:h-[420px] bg-[#6B2E0E] border border-[#C9952A]/25 rounded-[2px] overflow-hidden flex flex-col justify-between group cursor-pointer transition-all duration-500 hover:shadow-[0_0_25px_rgba(201,149,42,0.25)] select-none transform-gpu shrink-0 ${!inStock ? 'opacity-60 grayscale' : ''}`}
       style={{
         transformStyle: 'preserve-3d',
       }}
@@ -168,13 +169,21 @@ export default function MenuCard({ image, category, name, nameArabic, arabicName
 
           <div 
             onClick={handleAdd}
-            className={`relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0 cursor-pointer active:scale-95 transition-all duration-300 ${isAdded ? 'scale-105' : ''}`}
+            className={`relative overflow-hidden h-8 flex items-center justify-end w-[135px] shrink-0 transition-all duration-300 ${inStock ? 'cursor-pointer active:scale-95' : 'cursor-not-allowed'} ${isAdded ? 'scale-105' : ''}`}
           >
-            <span className={`text-label-sm uppercase font-bold tracking-[0.15em] text-[#C9952A] transition-transform duration-300 font-body block text-right w-full pr-1 ${isAdded ? '-translate-y-8' : 'group-hover:-translate-y-8'}`}>
+            <span className={`text-label-sm uppercase font-bold tracking-[0.15em] transition-transform duration-300 font-body block text-right w-full pr-1 ${!inStock ? 'text-cream/50' : 'text-[#C9952A]'} ${isAdded || !inStock ? '-translate-y-8' : 'group-hover:-translate-y-8'}`}>
               ADD TO CART
             </span>
-            <span className={`absolute right-0 transition-all duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] w-full h-full rounded-[2px] font-body ${isAdded ? 'translate-y-0 bg-emerald-700 text-ivory border border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'translate-y-8 group-hover:translate-y-0 bg-[#C9952A] text-[#1A0A00]'}`}>
-              {isAdded ? (
+            <span className={`absolute right-0 transition-all duration-300 flex items-center justify-center gap-1.5 text-label-xs font-bold tracking-[0.12em] w-full h-full rounded-[2px] font-body ${
+              !inStock 
+                ? 'translate-y-0 bg-[#2A1205] text-cream/40 border border-cream/10' 
+                : isAdded 
+                  ? 'translate-y-0 bg-emerald-700 text-ivory border border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]' 
+                  : 'translate-y-8 group-hover:translate-y-0 bg-[#C9952A] text-[#1A0A00]'
+            }`}>
+              {!inStock ? (
+                <>OUT OF STOCK</>
+              ) : isAdded ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-ivory" />
                   ADDED!

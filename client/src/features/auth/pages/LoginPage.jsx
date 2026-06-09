@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, clearAuthError } from '../../../store/slices/authSlice';
-import { Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { KhatamPattern } from '../../../shared/ui/ArabicPattern';
 
 export default function Login() {
@@ -10,7 +10,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   
   const dispatch = useDispatch();
-  const { status, error } = useSelector((state) => state.auth);
+  const { isLoading, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(clearAuthError());
@@ -79,10 +79,17 @@ export default function Login() {
 
           <button
             type="submit"
-            disabled={status === 'loading'}
-            className="w-full mt-2 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-bold py-3 rounded tracking-wider uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-body"
+            disabled={isLoading}
+            className="w-full mt-2 bg-[#C9952A] hover:bg-[#E8BA5A] text-[#1A0A00] font-bold py-3 rounded tracking-wider uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center font-body"
           >
-            {status === 'loading' ? 'Authenticating...' : 'Sign In'}
+            {isLoading ? (
+              <>
+                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                Authenticating...
+              </>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
 

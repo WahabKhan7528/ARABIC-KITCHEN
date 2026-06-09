@@ -157,7 +157,7 @@ export default function PaymentPage() {
       }, 1000);
     } catch (error) {
       console.error('Failed to create order', error);
-      alert('Failed to place order. Please try again.');
+      alert('Network error. Failed to place order. Please check your connection and try again.');
     }
   };
 

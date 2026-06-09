@@ -44,6 +44,14 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    failedLoginAttempts: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    lockUntil: {
+      type: Date
+    }
   },
   { timestamps: true }
 );
@@ -53,6 +61,10 @@ userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
   next();
+});
+
+userSchema.virtual('isLocked').get(function() {
+  return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
 userSchema.methods.comparePassword = async function (candidatePassword) {

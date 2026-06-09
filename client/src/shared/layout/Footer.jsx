@@ -1,8 +1,10 @@
 import React from 'react';
 import { Phone, MapPin, Globe } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   return (
     <footer className="relative bg-[#1F1108] border-t border-[#C9952A]/20 pt-16 pb-8 px-6 md:px-12 select-none overflow-hidden">
@@ -139,8 +141,12 @@ export default function Footer() {
         <span>&copy; {currentYear} Arabic Kitchen Restaurant. All Rights Reserved.</span>
         <div className="flex items-center gap-4">
           <span>Crafted in Bahawalpur, Pakistan</span>
-          <span className="text-gold/20">|</span>
-          <a href="#dashboard" className="text-gold hover:text-gold-light hover:underline transition-colors font-semibold">Dashboard</a>
+          {(!isAuthenticated || user?.role === 'admin' || user?.role === 'staff') && (
+            <>
+              <span className="text-gold/20">|</span>
+              <a href="#dashboard" className="text-gold hover:text-gold-light hover:underline transition-colors font-semibold">Dashboard</a>
+            </>
+          )}
         </div>
       </div>
     </footer>

@@ -6,24 +6,25 @@ import { useSelector } from 'react-redux';
 import api from '../../../utils/api';
 
 export default function Reservation() {
-  const { customer } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   
   const [formData, setFormData] = useState({
-    name: customer ? customer.name : '',
-    phone: customer ? customer.phone : '',
+    name: user ? user.name : '',
+    phone: user ? user.phone : '',
     date: '',
     time: '19:00',
     guests: '2',
+    occasion: 'none',
     requests: ''
   });
 
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
-      name: customer ? customer.name : '',
-      phone: customer ? customer.phone : ''
+      name: user ? user.name : '',
+      phone: user ? user.phone : ''
     }));
-  }, [customer]);
+  }, [user]);
 
   const [errors, setErrors] = useState({});
   const [formError, setFormError] = useState('');
@@ -96,6 +97,7 @@ export default function Reservation() {
       reservationDate: formData.date,
       reservationTime: formData.time,
       partySize: String(formData.guests),
+      occasion: formData.occasion,
       specialRequests: formData.requests
     };
 
@@ -239,11 +241,12 @@ export default function Reservation() {
                       setActiveReservationStatus(null);
                       setActiveTableNumber(null);
                       setFormData({
-                        name: customer ? customer.name : '',
-                        phone: customer ? customer.phone : '',
+                        name: user ? user.name : '',
+                        phone: user ? user.phone : '',
                         date: '',
                         time: '19:00',
                         guests: '2',
+                        occasion: 'none',
                         requests: ''
                       });
                     }}
@@ -284,6 +287,8 @@ export default function Reservation() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="e.g. 03001234567"
+                      minLength={11}
+                      maxLength={14}
                       className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     />
                     {errors.phone && <span className="text-label-xs text-accent-red mt-0.5">{errors.phone}</span>}
@@ -300,6 +305,7 @@ export default function Reservation() {
                       type="date"
                       name="date"
                       value={formData.date}
+                      min={new Date().toISOString().split('T')[0]}
                       onChange={handleInputChange}
                       className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30 [color-scheme:dark]"
                     />
@@ -338,7 +344,25 @@ export default function Reservation() {
                     </select>
                   </div>
 
-                  <div className="flex flex-col items-start gap-1 sm:col-span-2">
+                  <div className="flex flex-col items-start gap-1 sm:col-span-1">
+                    <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
+                      <Users className="w-3 h-3 text-gold" /> Occasion
+                    </label>
+                    <select
+                      name="occasion"
+                      value={formData.occasion}
+                      onChange={handleInputChange}
+                      className="w-full bg-[#1A0A00]/80 border border-gold/20 rounded-[2px] px-3 py-2.5 text-body-sm text-ivory focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
+                    >
+                      <option value="none" className="bg-charcoal text-ivory">Standard Dining</option>
+                      <option value="Birthday" className="bg-charcoal text-ivory">Birthday</option>
+                      <option value="Anniversary" className="bg-charcoal text-ivory">Anniversary</option>
+                      <option value="Business" className="bg-charcoal text-ivory">Business/Corporate</option>
+                      <option value="Family Gathering" className="bg-charcoal text-ivory">Family Gathering</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col items-start gap-1 sm:col-span-1">
                     <label className="text-label-xs uppercase tracking-widest text-cream/60 font-body flex items-center gap-1.5">
                       <MessageSquare className="w-3 h-3 text-gold" /> Special Requests
                     </label>
@@ -347,7 +371,7 @@ export default function Reservation() {
                       name="requests"
                       value={formData.requests}
                       onChange={handleInputChange}
-                      placeholder="e.g. Birthday setup, window table"
+                      placeholder="e.g. window table"
                       className="w-full bg-[#1A0A00]/60 border border-gold/20 rounded-[2px] px-4 py-2.5 text-body-sm text-ivory placeholder-cream/30 focus:outline-none focus:border-gold transition-colors font-body focus:ring-1 focus:ring-gold/30"
                     />
                   </div>

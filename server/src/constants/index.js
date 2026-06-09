@@ -69,7 +69,7 @@ const REGISTRATION_STATUSES = ['seated', 'completed', 'cancelled'];
 // ---------------------------------------------------------------------------
 
 /** Valid roles for authenticated users. */
-const USER_ROLES = ['staff', 'admin'];
+const USER_ROLES = ['staff', 'admin', 'customer'];
 
 // ---------------------------------------------------------------------------
 // Exports

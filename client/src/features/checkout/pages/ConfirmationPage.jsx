@@ -39,6 +39,11 @@ export default function ConfirmationPage() {
   useEffect(() => {
     fetchOrder();
 
+    // Auto-poll every 15 seconds for live status updates
+    const pollInterval = setInterval(() => {
+      fetchOrder();
+    }, 15000);
+
     // Listen to local changes (same tab)
     window.addEventListener('ordersUpdated', fetchOrder);
     window.addEventListener('hashchange', fetchOrder);
@@ -53,6 +58,7 @@ export default function ConfirmationPage() {
     window.addEventListener('storage', handleStorageChange);
     
     return () => {
+      clearInterval(pollInterval);
       window.removeEventListener('ordersUpdated', fetchOrder);
       window.removeEventListener('hashchange', fetchOrder);
       window.removeEventListener('storage', handleStorageChange);
@@ -228,8 +234,14 @@ export default function ConfirmationPage() {
         <div className="border border-gold/20 bg-[#1F1108]/90 p-6 md:p-8 rounded-[2px] shadow-md relative overflow-hidden text-left">
           <div className="absolute inset-1.5 border border-gold/5 pointer-events-none" />
 
-          <h3 className="text-label-sm uppercase tracking-widest text-gold mb-6 border-b border-gold/10 pb-3 font-semibold font-body">
-            Order Receipt & Invoice
+          <h3 className="text-label-sm uppercase tracking-widest text-gold mb-6 border-b border-gold/10 pb-3 font-semibold font-body flex justify-between items-center">
+            <span>Order Receipt & Invoice</span>
+            <button 
+              onClick={() => window.print()} 
+              className="px-3 py-1 bg-gold/10 hover:bg-gold/20 text-gold rounded-full text-xs transition-colors hidden md:block border border-gold/30"
+            >
+              Print Receipt
+            </button>
           </h3>
 
           {/* Customer Metadata details */}

@@ -42,6 +42,9 @@ router.post('/', optionalAuth, resValidators.create, resController.create);
 // Authenticated customer route to fetch their own reservations
 router.get('/my-reservations', verifyToken, resController.getMyReservations);
 
+// Authenticated customer route to cancel their own reservation
+router.patch('/:id/cancel', verifyToken, resController.cancelReservation);
+
 // Public route to check reservation status
 router.get('/status/:id', resController.getStatus);
 

@@ -20,6 +20,7 @@ import Footer from '../shared/layout/Footer';
 import CustomCursor from '../shared/ui/CustomCursor';
 import GrainOverlay from '../shared/ui/GrainOverlay';
 import SEO from '../shared/ui/SEO';
+import BackToTop from '../shared/ui/BackToTop';
 
 // Feature pages
 import { LandingPage } from '../features/landing';
@@ -32,7 +33,7 @@ import CustomerDashboard from '../features/portal/pages/CustomerDashboard';
 export default function App() {
   // Current view determines which feature is rendered
   const [currentView, setCurrentView] = useState('guest'); // guest | staff | cart | checkout | payment | confirmation | customer-dashboard
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function App() {
 
       {/* ─── View Router ──────────────────────────────────────────── */}
       {currentView === 'staff' ? (
-        isAuthenticated ? <DashboardPage /> : <LoginPage />
+        isAuthenticated && (user?.role === 'admin' || user?.role === 'staff') ? <DashboardPage /> : <LoginPage />
       ) : currentView === 'cart' ? (
         <>
           <Navbar />
@@ -121,6 +122,7 @@ export default function App() {
           <Footer />
         </>
       )}
+      <BackToTop />
     </div>
   );
 }
